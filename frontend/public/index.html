@@ -29,7 +29,8 @@
         <meta name="msapplication-TileImage" content="/brand/favicon.png" />
         <meta name="msapplication-TileColor" content="#5C7D82" />
 
-        <!-- Open Graph (WhatsApp, LinkedIn, Facebook preview) -->
+        <!-- Open Graph (WhatsApp, LinkedIn, Facebook preview).
+             WhatsApp REQUIRES absolute https URLs and width/height tags. -->
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="MiCells" />
         <meta property="og:title" content="MiCells | Long-Term Personal Blood Banking" />
@@ -38,21 +39,22 @@
             content="Building the future of personal blood banking through preservation, monitoring and long-term biological assurance."
         />
         <meta property="og:url" content="https://micells.io/" />
-        <meta property="og:image" content="/brand/favicon.png" />
+        <meta property="og:image" content="https://micells.io/brand/og-image.png" />
+        <meta property="og:image:secure_url" content="https://micells.io/brand/og-image.png" />
         <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="512" />
-        <meta property="og:image:height" content="512" />
-        <meta property="og:image:alt" content="MiCells" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="MiCells — Long-Term Personal Blood Banking" />
         <meta property="og:locale" content="en_US" />
 
         <!-- Twitter / X card -->
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="MiCells | Long-Term Personal Blood Banking" />
         <meta
             name="twitter:description"
             content="Building the future of personal blood banking through preservation, monitoring and long-term biological assurance."
         />
-        <meta name="twitter:image" content="/brand/favicon.png" />
+        <meta name="twitter:image" content="https://micells.io/brand/og-image.png" />
         <meta name="twitter:image:alt" content="MiCells" />
 
         <!-- Structured Data: Organisation -->
@@ -62,14 +64,17 @@
                 "@type": "Organization",
                 "name": "MiCells",
                 "url": "https://micells.io/",
-                "logo": "https://micells.io/brand/favicon.png",
+                "logo": "https://micells.io/brand/og-image.png",
                 "email": "info@micells.io",
                 "description": "MiCells is a healthcare infrastructure company developing a clinically governed platform for long-term personal blood banking. Through preservation, monitoring, governance and retrieval frameworks, MiCells aims to enable individuals to maintain access to their own blood for future medical use.",
-                "sameAs": []
+                "sameAs": [
+                    "https://hk.linkedin.com/company/micells",
+                    "https://x.com/mi_cells"
+                ]
             }
         </script>
 
-        <!-- Structured Data: WebSite (sitelinks search) -->
+        <!-- Structured Data: WebSite -->
         <script type="application/ld+json">
             {
                 "@context": "https://schema.org",
@@ -77,6 +82,34 @@
                 "name": "MiCells",
                 "url": "https://micells.io/"
             }
+        </script>
+
+        <!-- Service-worker killer: unregisters any stale service workers from a
+             previous deployment of this domain and purges their caches so
+             returning visitors automatically receive the current build. -->
+        <script>
+            (function () {
+                if ("serviceWorker" in navigator && navigator.serviceWorker.getRegistrations) {
+                    navigator.serviceWorker
+                        .getRegistrations()
+                        .then(function (regs) {
+                            regs.forEach(function (r) {
+                                r.unregister();
+                            });
+                        })
+                        .catch(function () {});
+                }
+                if (typeof caches !== "undefined" && caches.keys) {
+                    caches
+                        .keys()
+                        .then(function (keys) {
+                            keys.forEach(function (k) {
+                                caches.delete(k);
+                            });
+                        })
+                        .catch(function () {});
+                }
+            })();
         </script>
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
