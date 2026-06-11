@@ -39,7 +39,7 @@ export const Technology = () => {
         <div className="grid grid-cols-12 gap-x-8 mb-16 md:mb-24">
           <div className="col-span-12 md:col-span-4">
             <div className="font-mono-tab text-[11px] uppercase tracking-[0.22em] text-[color:var(--mc-primary-soft)]">
-              MC / 07 — Infrastructure
+              MC · 07 · Infrastructure
             </div>
           </div>
           <div className="col-span-12 md:col-span-8">
@@ -47,9 +47,9 @@ export const Technology = () => {
               <h2 className="font-display text-[34px] md:text-[56px] leading-[1.04] tracking-tight text-white font-light">
                 Institutional{" "}
                 <span className="italic text-[color:var(--mc-primary-soft)]">
-                  infrastructure
+                  infrastructure.
                 </span>{" "}
-                — engineered to outlast the present.
+                Engineered to outlast the present.
               </h2>
             </Reveal>
             <Reveal delay={120}>

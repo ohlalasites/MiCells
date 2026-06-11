@@ -6,7 +6,7 @@ const SERVICES = [
     icon: Droplet,
     title: "Autologous Blood Preservation",
     body:
-      "Secure long-term preservation of a client's own biological material under controlled, auditable conditions — for personal future use only.",
+      "Secure long-term preservation of a client's own biological material under controlled, auditable conditions, for personal future use only.",
     meta: "Service · 01",
   },
   {
@@ -42,7 +42,7 @@ export const Services = () => {
       <div className="mc-container">
         <div className="grid grid-cols-12 gap-x-8 mb-16 md:mb-24">
           <div className="col-span-12 md:col-span-4">
-            <div className="eyebrow eyebrow-dark">MC / 05 — Services</div>
+            <div className="eyebrow eyebrow-dark">MC · 05 · Services</div>
           </div>
           <div className="col-span-12 md:col-span-8">
             <Reveal>

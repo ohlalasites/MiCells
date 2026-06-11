@@ -30,7 +30,7 @@ export const Investor = () => {
         <div className="grid grid-cols-12 gap-x-8 mb-16 md:mb-20">
           <div className="col-span-12 md:col-span-4">
             <div className="font-mono-tab text-[11px] uppercase tracking-[0.22em] text-[color:var(--mc-primary-soft)]">
-              MC / 11 — Investors
+              MC · 11 · Investors
             </div>
           </div>
           <div className="col-span-12 md:col-span-8">
@@ -44,8 +44,8 @@ export const Investor = () => {
             </Reveal>
             <Reveal delay={120}>
               <p className="mt-8 max-w-[640px] text-[15.5px] leading-relaxed text-white/65">
-                MiCells operates at the formative stage of a new category —
-                institutional-grade biological stewardship. Engagement is by
+                MiCells operates at the formative stage of a new category.
+                Institutional-grade biological stewardship. Engagement is by
                 introduction and qualified enquiry.
               </p>
             </Reveal>

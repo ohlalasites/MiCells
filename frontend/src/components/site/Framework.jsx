@@ -24,7 +24,7 @@ const FRAMEWORK = [
     icon: BadgeCheck,
     title: "Quality Assurance",
     body:
-      "Documented quality protocols across collection, transport, storage and mobilisation — auditable end-to-end.",
+      "Documented quality protocols across collection, transport, storage and mobilisation. Auditable end to end.",
   },
 ];
 
@@ -38,7 +38,7 @@ export const Framework = () => {
       <div className="mc-container">
         <div className="grid grid-cols-12 gap-x-8 mb-16 md:mb-24">
           <div className="col-span-12 md:col-span-4">
-            <div className="eyebrow">MC / 08 — Framework</div>
+            <div className="eyebrow">MC · 08 · Framework</div>
           </div>
           <div className="col-span-12 md:col-span-8">
             <Reveal>

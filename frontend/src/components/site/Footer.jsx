@@ -23,8 +23,7 @@ export const Footer = () => {
             </div>
             <p className="mt-6 max-w-[420px] text-[14px] leading-relaxed text-[color:var(--mc-muted)]">
               Institutional-grade preservation and stewardship of autologous
-              biological assets. Biological assurance for a future of medical
-              certainty.
+              biological assets.
             </p>
           </div>
 
@@ -90,12 +89,9 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-20 pt-8 border-t border-[color:var(--mc-line)] flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+        <div className="mt-20 pt-8 border-t border-[color:var(--mc-line)] flex items-center">
           <span className="font-mono-tab text-[11px] uppercase text-[color:var(--mc-muted)]">
             © {year} MiCells. All rights reserved.
-          </span>
-          <span className="font-mono-tab text-[11px] uppercase text-[color:var(--mc-muted)]">
-            Confidential — For Qualified Enquiries Only
           </span>
         </div>
       </div>

@@ -38,7 +38,7 @@ export const Pillars = () => {
       <div className="mc-container">
         <div className="grid grid-cols-12 gap-x-8 gap-y-10 items-end mb-16 md:mb-24">
           <div className="col-span-12 md:col-span-3">
-            <div className="eyebrow">MC / 02 — Pillars</div>
+            <div className="eyebrow">MC · 02 · Pillars</div>
           </div>
           <div className="col-span-12 md:col-span-8 md:col-start-5">
             <Reveal>

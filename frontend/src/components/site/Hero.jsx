@@ -65,21 +65,21 @@ export const Hero = () => {
 
             <h1
               data-testid="hero-headline"
-              className="font-display text-white text-[44px] sm:text-[60px] lg:text-[84px] leading-[1.02] tracking-tight font-light"
+              className="font-display text-white text-[40px] sm:text-[56px] lg:text-[78px] leading-[1.04] tracking-tight font-light"
             >
               Biological Assurance{" "}
               <span className="italic font-normal text-[color:var(--mc-primary-soft)]">
-                for a future
+                Through
               </span>{" "}
-              of Medical Certainty.
+              Long-Term Personal Blood Banking.
             </h1>
 
             <p
               data-testid="hero-subheadline"
-              className="mt-8 max-w-[640px] text-white/80 text-[16px] md:text-[18px] leading-relaxed"
+              className="mt-8 max-w-[680px] text-white/80 text-[16px] md:text-[18px] leading-relaxed"
             >
               Institutional-grade preservation and stewardship of autologous
-              biological assets — engineered for individuals, families and
+              biological assets. Engineered for individuals, families and
               institutions who cannot afford uncertainty.
             </p>
 
@@ -106,13 +106,10 @@ export const Hero = () => {
 
       {/* Bottom metadata strip */}
       <div className="absolute bottom-0 inset-x-0 border-t border-white/10 backdrop-blur-[2px]">
-        <div className="mc-container flex flex-col md:flex-row items-start md:items-center justify-between py-5 gap-3">
+        <div className="mc-container flex items-center py-5">
           <div className="flex items-center gap-3 text-white/65 font-mono-tab text-[11px] uppercase">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--mc-primary-soft)]" />
-            Stewardship Programme — In Development
-          </div>
-          <div className="text-white/55 font-mono-tab text-[11px] uppercase">
-            Confidential · For Qualified Enquiries
+            Stewardship Programme in Development
           </div>
         </div>
       </div>

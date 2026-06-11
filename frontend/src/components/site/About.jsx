@@ -19,7 +19,7 @@ export const About = () => {
       <div className="mc-container">
         <div className="grid grid-cols-12 gap-x-8 gap-y-12">
           <div className="col-span-12 md:col-span-5">
-            <div className="eyebrow">MC / 04 — About</div>
+            <div className="eyebrow">MC · 04 · About</div>
             <Reveal>
               <h2 className="mt-6 font-display text-[34px] md:text-[52px] leading-[1.05] tracking-tight text-[color:var(--mc-secondary)]">
                 A new standard in{" "}
@@ -51,18 +51,18 @@ export const About = () => {
                 MiCells is a biotechnology infrastructure platform focused on
                 preserving biological certainty for future medical needs. We
                 operate at the intersection of clinical governance, secure
-                logistics and long-term preservation — building the institutional
-                architecture required to make autologous biological assets a
-                practical asset class.
+                logistics and long-term preservation. We build the
+                institutional architecture required to make autologous
+                biological assets a practical asset class.
               </p>
             </Reveal>
 
             <Reveal delay={120}>
               <p className="mt-8 text-[15.5px] leading-relaxed text-[color:var(--mc-muted)] max-w-[640px]">
-                Our role is not to replace medicine, but to make it possible:
-                ensuring that when a clinical decision is taken, the
-                corresponding biological material is verified, available and
-                mobilisable — anywhere in the world.
+                Our role is not to replace medicine, but to make it possible.
+                When a clinical decision is taken, the corresponding biological
+                material is verified, available and mobilisable, anywhere in
+                the world.
               </p>
             </Reveal>
 

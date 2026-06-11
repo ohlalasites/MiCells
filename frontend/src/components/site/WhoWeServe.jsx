@@ -19,7 +19,7 @@ export const WhoWeServe = () => {
       <div className="mc-container">
         <div className="grid grid-cols-12 gap-x-8 mb-16 md:mb-24">
           <div className="col-span-12 md:col-span-4">
-            <div className="eyebrow eyebrow-dark">MC / 03 — Clients</div>
+            <div className="eyebrow eyebrow-dark">MC · 03 · Clients</div>
           </div>
           <div className="col-span-12 md:col-span-8">
             <Reveal>
@@ -32,7 +32,7 @@ export const WhoWeServe = () => {
             </Reveal>
             <Reveal delay={120}>
               <p className="mt-8 max-w-[640px] text-[15.5px] leading-relaxed text-[color:var(--mc-muted)]">
-                MiCells serves a specific class of client — those whose health,
+                MiCells serves a specific class of client. Those whose health,
                 mobility and continuity demand a higher standard of biological
                 preparedness than conventional systems can offer.
               </p>

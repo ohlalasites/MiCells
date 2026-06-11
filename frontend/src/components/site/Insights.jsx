@@ -13,7 +13,7 @@ const ARTICLES = [
     tag: "Clinical",
     title: "Rare Blood Types and Supply Constraints",
     summary:
-      "Structural fragility in the global supply of rare phenotypes — and the role of autologous preservation.",
+      "Structural fragility in the global supply of rare phenotypes, and the role of autologous preservation.",
     minutes: "11 min",
   },
   {
@@ -42,7 +42,7 @@ export const Insights = () => {
       <div className="mc-container">
         <div className="grid grid-cols-12 gap-x-8 mb-16 md:mb-20">
           <div className="col-span-12 md:col-span-4">
-            <div className="eyebrow">MC / 10 — Insights</div>
+            <div className="eyebrow">MC · 10 · Insights</div>
           </div>
           <div className="col-span-12 md:col-span-8">
             <Reveal>
