@@ -1,16 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { BRAND } from "@/lib/brand";
 import { ArrowRight } from "lucide-react";
 
 export const Hero = () => {
   const videoRef = useRef(null);
-  const [showPoster, setShowPoster] = useState(true);
 
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    const onPlay = () => setShowPoster(false);
-    v.addEventListener("playing", onPlay);
     const tryPlay = async () => {
       try {
         v.muted = true;
@@ -20,7 +17,6 @@ export const Hero = () => {
       }
     };
     tryPlay();
-    return () => v.removeEventListener("playing", onPlay);
   }, []);
 
   return (
@@ -38,22 +34,8 @@ export const Hero = () => {
         muted
         playsInline
         loop
-        preload="metadata"
+        preload="auto"
       />
-
-      {/* Custom poster: shown until the video begins playing. Smaller and shifted right per brand. */}
-      <div
-        data-testid="hero-poster"
-        className={`absolute inset-0 flex items-center justify-center bg-[color:var(--mc-secondary)] transition-opacity duration-700 z-[1] pointer-events-none ${
-          showPoster ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <img
-          src={BRAND.logoWordmark}
-          alt="MiCells"
-          className="w-[270px] sm:w-[320px] md:w-[390px] translate-x-[6%]"
-        />
-      </div>
       {/* Layered overlay for legibility */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/70" />
       <div className="absolute inset-0 bg-[color:var(--mc-secondary)]/20 mix-blend-multiply" />
