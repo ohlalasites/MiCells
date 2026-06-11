@@ -5,8 +5,8 @@ export const BRAND = {
   logoWordmark: "/brand/logo-wordmark.png",
   heroVideo: "/brand/hero.mp4",
   links: {
-    linkedin: "https://www.linkedin.com/",
-    x: "https://x.com/",
+    linkedin: "https://hk.linkedin.com/company/micells",
+    x: "https://x.com/mi_cells",
   },
 };
 

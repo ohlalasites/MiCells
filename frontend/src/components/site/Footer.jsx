@@ -1,8 +1,13 @@
+import { useState } from "react";
 import { BRAND } from "@/lib/brand";
 import { Linkedin } from "lucide-react";
+import { ArticleModal } from "./ArticleModal";
+import { PRIVACY_POLICY, TERMS_OF_USE } from "@/lib/legal";
 
 export const Footer = () => {
   const year = new Date().getFullYear();
+  const [doc, setDoc] = useState(null);
+
   return (
     <footer
       data-testid="site-footer"
@@ -48,7 +53,7 @@ export const Footer = () => {
               <a
                 href={BRAND.links.linkedin}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 data-testid="footer-linkedin"
                 className="text-[14px] text-[color:var(--mc-secondary)] hover:text-[color:var(--mc-primary)] inline-flex items-center gap-2"
               >
@@ -57,7 +62,7 @@ export const Footer = () => {
               <a
                 href={BRAND.links.x}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 data-testid="footer-x"
                 className="text-[14px] text-[color:var(--mc-secondary)] hover:text-[color:var(--mc-primary)]"
               >
@@ -71,20 +76,22 @@ export const Footer = () => {
               Legal
             </div>
             <div className="mt-5 flex flex-col gap-3">
-              <a
-                href="#"
+              <button
+                type="button"
+                onClick={() => setDoc(PRIVACY_POLICY)}
                 data-testid="footer-privacy"
-                className="text-[14px] text-[color:var(--mc-secondary)] hover:text-[color:var(--mc-primary)]"
+                className="text-left text-[14px] text-[color:var(--mc-secondary)] hover:text-[color:var(--mc-primary)] bg-transparent border-0 p-0 cursor-pointer"
               >
                 Privacy Policy
-              </a>
-              <a
-                href="#"
+              </button>
+              <button
+                type="button"
+                onClick={() => setDoc(TERMS_OF_USE)}
                 data-testid="footer-terms"
-                className="text-[14px] text-[color:var(--mc-secondary)] hover:text-[color:var(--mc-primary)]"
+                className="text-left text-[14px] text-[color:var(--mc-secondary)] hover:text-[color:var(--mc-primary)] bg-transparent border-0 p-0 cursor-pointer"
               >
                 Terms of Use
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -95,6 +102,8 @@ export const Footer = () => {
           </span>
         </div>
       </div>
+
+      {doc && <ArticleModal article={doc} onClose={() => setDoc(null)} />}
     </footer>
   );
 };
