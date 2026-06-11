@@ -48,19 +48,6 @@ export const Hero = () => {
       <div className="absolute inset-0 flex items-end pb-16 md:pb-24">
         <div className="mc-container w-full">
           <div className="max-w-[920px]">
-            <div
-              data-testid="hero-eyebrow"
-              className="flex items-center gap-4 mb-8"
-            >
-              <span className="font-mono-tab text-[11px] uppercase text-white/70">
-                MC / 01
-              </span>
-              <span className="h-px w-10 bg-white/40" />
-              <span className="font-mono-tab text-[11px] uppercase text-white/70">
-                Biological Assurance Infrastructure
-              </span>
-            </div>
-
             <h1
               data-testid="hero-headline"
               className="font-display text-white text-[40px] sm:text-[56px] lg:text-[78px] leading-[1.04] tracking-tight font-light"
@@ -76,9 +63,9 @@ export const Hero = () => {
               data-testid="hero-subheadline"
               className="mt-8 max-w-[680px] text-white/80 text-[16px] md:text-[18px] leading-relaxed"
             >
-              Institutional-grade preservation and stewardship of autologous
-              biological assets. Engineered for individuals, families and
-              institutions who cannot afford uncertainty.
+              MiCells is developing infrastructure for long-term personal
+              blood banking, enabling individuals to preserve, monitor and
+              maintain access to their own blood for future medical use.
             </p>
 
             <div className="mt-12 flex flex-wrap items-center gap-3">
@@ -98,16 +85,6 @@ export const Hero = () => {
                 Our Framework
               </a>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom metadata strip */}
-      <div className="absolute bottom-0 inset-x-0 border-t border-white/10 backdrop-blur-[2px]">
-        <div className="mc-container flex items-center py-5">
-          <div className="flex items-center gap-3 text-white/65 font-mono-tab text-[11px] uppercase">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--mc-primary-soft)]" />
-            Stewardship Programme in Development
           </div>
         </div>
       </div>

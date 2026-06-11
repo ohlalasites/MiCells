@@ -2,10 +2,7 @@ import { Nav } from "@/components/site/Nav";
 import { Hero } from "@/components/site/Hero";
 import { Pillars } from "@/components/site/Pillars";
 import { WhoWeServe } from "@/components/site/WhoWeServe";
-import { About } from "@/components/site/About";
-import { Services } from "@/components/site/Services";
 import { Process } from "@/components/site/Process";
-import { Technology } from "@/components/site/Technology";
 import { Framework } from "@/components/site/Framework";
 import { Advisory } from "@/components/site/Advisory";
 import { Insights } from "@/components/site/Insights";
@@ -21,10 +18,7 @@ export default function Home() {
         <Hero />
         <Pillars />
         <WhoWeServe />
-        <About />
-        <Services />
         <Process />
-        <Technology />
         <Framework />
         <Advisory />
         <Insights />

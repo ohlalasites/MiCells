@@ -1,12 +1,11 @@
 import { Reveal } from "./Reveal";
 
 const CLIENTS = [
-  { num: "01", label: "High-Net-Worth Individuals" },
-  { num: "02", label: "Family Offices" },
-  { num: "03", label: "Individuals with Rare Blood Types" },
-  { num: "04", label: "International Healthcare Clients" },
-  { num: "05", label: "Executive Families" },
-  { num: "06", label: "Medical Preparedness Clients" },
+  { num: "01", label: "Individuals Seeking Long-Term Preparedness" },
+  { num: "02", label: "High-Net-Worth Individuals" },
+  { num: "03", label: "Individuals With Rare Blood Types" },
+  { num: "04", label: "Family Offices & Legacy Planning" },
+  { num: "05", label: "International Healthcare Clients" },
 ];
 
 export const WhoWeServe = () => {
@@ -19,22 +18,22 @@ export const WhoWeServe = () => {
       <div className="mc-container">
         <div className="grid grid-cols-12 gap-x-8 mb-16 md:mb-24">
           <div className="col-span-12 md:col-span-4">
-            <div className="eyebrow eyebrow-dark">MC · 03 · Clients</div>
+            <div className="eyebrow eyebrow-dark">02 · Clients</div>
           </div>
           <div className="col-span-12 md:col-span-8">
             <Reveal>
               <h2 className="font-display text-[34px] md:text-[56px] leading-[1.04] tracking-tight text-[color:var(--mc-secondary)]">
-                Designed for those who{" "}
+                Designed for individuals planning{" "}
                 <span className="italic text-[color:var(--mc-primary)]">
-                  cannot afford uncertainty.
+                  beyond conventional healthcare.
                 </span>
               </h2>
             </Reveal>
             <Reveal delay={120}>
               <p className="mt-8 max-w-[640px] text-[15.5px] leading-relaxed text-[color:var(--mc-muted)]">
-                MiCells serves a specific class of client. Those whose health,
-                mobility and continuity demand a higher standard of biological
-                preparedness than conventional systems can offer.
+                MiCells supports individuals and families seeking long-term
+                biological preparedness through clinically governed personal
+                blood banking.
               </p>
             </Reveal>
           </div>

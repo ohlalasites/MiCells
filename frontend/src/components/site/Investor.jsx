@@ -5,12 +5,12 @@ const TRACKS = [
   {
     label: "Strategic Partnerships",
     body:
-      "Clinical, logistics and institutional partners participating in the build-out of biological assurance infrastructure.",
+      "Clinical, preservation, logistics and healthcare partners supporting the build-out of long-term personal blood banking infrastructure.",
   },
   {
-    label: "Advisory Opportunities",
+    label: "Medical & Strategic Advisory",
     body:
-      "Confidential advisory roles for senior clinicians, scientists and operators with relevant institutional experience.",
+      "Supporting clinical governance, regulatory development and long-term healthcare deployment.",
   },
   {
     label: "Investor Enquiries",
@@ -30,23 +30,23 @@ export const Investor = () => {
         <div className="grid grid-cols-12 gap-x-8 mb-16 md:mb-20">
           <div className="col-span-12 md:col-span-4">
             <div className="font-mono-tab text-[11px] uppercase tracking-[0.22em] text-[color:var(--mc-primary-soft)]">
-              MC · 11 · Investors
+              07 · Partners
             </div>
           </div>
           <div className="col-span-12 md:col-span-8">
             <Reveal>
               <h2 className="font-display text-[34px] md:text-[56px] leading-[1.04] tracking-tight text-white font-light">
-                Building the future of{" "}
+                Partners &{" "}
                 <span className="italic text-[color:var(--mc-primary-soft)]">
-                  biological assurance.
+                  Investors.
                 </span>
               </h2>
             </Reveal>
             <Reveal delay={120}>
               <p className="mt-8 max-w-[640px] text-[15.5px] leading-relaxed text-white/65">
-                MiCells operates at the formative stage of a new category.
-                Institutional-grade biological stewardship. Engagement is by
-                introduction and qualified enquiry.
+                MiCells operates at the intersection of healthcare
+                infrastructure, preservation and long-term medical continuity.
+                Engagement is by introduction and qualified enquiry.
               </p>
             </Reveal>
           </div>

@@ -38,7 +38,7 @@ export const Framework = () => {
       <div className="mc-container">
         <div className="grid grid-cols-12 gap-x-8 mb-16 md:mb-24">
           <div className="col-span-12 md:col-span-4">
-            <div className="eyebrow">MC · 08 · Framework</div>
+            <div className="eyebrow">04 · Framework</div>
           </div>
           <div className="col-span-12 md:col-span-8">
             <Reveal>
@@ -51,10 +51,8 @@ export const Framework = () => {
             </Reveal>
             <Reveal delay={120}>
               <p className="mt-8 max-w-[640px] text-[15.5px] leading-relaxed text-[color:var(--mc-muted)]">
-                Credibility in biological stewardship is earned through
-                governance, not asserted through marketing. The MiCells
-                framework is designed to be defensible to clinicians, auditors
-                and regulators alike.
+                The MiCells framework is designed to be defensible to
+                clinicians, auditors and regulators alike.
               </p>
             </Reveal>
           </div>

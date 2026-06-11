@@ -9,7 +9,7 @@ export const Advisory = () => {
     >
       <div className="mc-container">
         <Reveal>
-          <div className="eyebrow eyebrow-dark">MC · 09 · Advisory</div>
+          <div className="eyebrow eyebrow-dark">05 · Advisory</div>
         </Reveal>
         <Reveal>
           <h2 className="mt-6 font-display text-[34px] md:text-[52px] leading-[1.05] tracking-tight text-[color:var(--mc-secondary)] max-w-[820px]">

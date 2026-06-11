@@ -6,7 +6,7 @@ const PILLARS = [
     icon: ShieldCheck,
     title: "Medical Autonomy",
     body:
-      "Your blood. Your biology. Preserved exclusively for your future use, under strictly autologous protocols.",
+      "Your blood. Your biology. Preserved under autologous protocols.",
   },
   {
     icon: Stethoscope,
@@ -24,7 +24,7 @@ const PILLARS = [
     icon: Globe2,
     title: "Global Readiness",
     body:
-      "Designed to support international mobility, expatriate continuity and emergency responsiveness across jurisdictions.",
+      "Designed to support international mobility and emergency responsiveness across jurisdictions.",
   },
 ];
 
@@ -38,14 +38,14 @@ export const Pillars = () => {
       <div className="mc-container">
         <div className="grid grid-cols-12 gap-x-8 gap-y-10 items-end mb-16 md:mb-24">
           <div className="col-span-12 md:col-span-3">
-            <div className="eyebrow">MC · 02 · Pillars</div>
+            <div className="eyebrow">01 · Pillars</div>
           </div>
           <div className="col-span-12 md:col-span-8 md:col-start-5">
             <Reveal>
               <h2 className="font-display text-[34px] md:text-[52px] leading-[1.06] tracking-tight text-[color:var(--mc-secondary)]">
-                Four principles that define{" "}
+                Four principles behind{" "}
                 <span className="italic text-[color:var(--mc-primary)]">
-                  every preserved asset.
+                  long-term personal blood banking.
                 </span>
               </h2>
             </Reveal>

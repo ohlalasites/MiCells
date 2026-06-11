@@ -29,7 +29,7 @@ const STEPS = [
     n: "05",
     title: "Mobilisation Upon Need",
     body:
-      "Coordinated international release to the treating clinical institution with complete documented chain-of-custody.",
+      "Coordinated release to the treating clinical institution with complete documented chain-of-custody.",
   },
 ];
 
@@ -43,14 +43,14 @@ export const Process = () => {
       <div className="mc-container">
         <div className="grid grid-cols-12 gap-x-8 mb-16 md:mb-24">
           <div className="col-span-12 md:col-span-4">
-            <div className="eyebrow">MC · 06 · Process</div>
+            <div className="eyebrow">03 · Process</div>
           </div>
           <div className="col-span-12 md:col-span-8">
             <Reveal>
               <h2 className="font-display text-[34px] md:text-[52px] leading-[1.05] tracking-tight text-[color:var(--mc-secondary)]">
                 Five stages of{" "}
                 <span className="italic text-[color:var(--mc-primary)]">
-                  uninterrupted custody.
+                  custody.
                 </span>
               </h2>
             </Reveal>

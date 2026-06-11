@@ -59,7 +59,7 @@ export const Contact = () => {
       <div className="mc-container">
         <div className="grid grid-cols-12 gap-x-8 gap-y-14">
           <div className="col-span-12 md:col-span-5">
-            <div className="eyebrow">MC · 12 · Contact</div>
+            <div className="eyebrow">08 · Contact</div>
             <Reveal>
               <h2 className="mt-6 font-display text-[34px] md:text-[56px] leading-[1.04] tracking-tight text-[color:var(--mc-secondary)]">
                 Speak with{" "}

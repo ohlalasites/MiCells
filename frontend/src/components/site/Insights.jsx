@@ -16,7 +16,7 @@ export const Insights = () => {
       <div className="mc-container">
         <div className="grid grid-cols-12 gap-x-8 mb-16 md:mb-20">
           <div className="col-span-12 md:col-span-4">
-            <div className="eyebrow">MC · 10 · Insights</div>
+            <div className="eyebrow">06 · Insights</div>
           </div>
           <div className="col-span-12 md:col-span-8">
             <Reveal>

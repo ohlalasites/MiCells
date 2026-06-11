@@ -12,10 +12,8 @@ export const BRAND = {
 
 export const NAV = [
   { label: "Framework", href: "#framework" },
-  { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
-  { label: "Infrastructure", href: "#technology" },
   { label: "Advisory", href: "#advisory" },
   { label: "Insights", href: "#insights" },
-  { label: "Investors", href: "#investors" },
+  { label: "Partners", href: "#investors" },
 ];
