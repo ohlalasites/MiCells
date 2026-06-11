@@ -1,0 +1,30 @@
+import { useEffect, useRef, useState } from "react";
+
+export const Reveal = ({ children, delay = 0, as: As = "div", className = "" }) => {
+  const ref = useRef(null);
+  const [shown, setShown] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setTimeout(() => setShown(true), delay);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.12 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [delay]);
+
+  return (
+    <As ref={ref} className={`reveal ${shown ? "in" : ""} ${className}`}>
+      {children}
+    </As>
+  );
+};
