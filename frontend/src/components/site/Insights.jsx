@@ -1,38 +1,12 @@
+import { useState } from "react";
 import { Reveal } from "./Reveal";
 import { ArrowUpRight } from "lucide-react";
-
-const ARTICLES = [
-  {
-    tag: "Logistics",
-    title: "Precision Logistics in Global Medicine",
-    summary:
-      "How cross-border biological movement is becoming a defining capability of modern healthcare institutions.",
-    minutes: "8 min",
-  },
-  {
-    tag: "Clinical",
-    title: "Rare Blood Types and Supply Constraints",
-    summary:
-      "Structural fragility in the global supply of rare phenotypes, and the role of autologous preservation.",
-    minutes: "11 min",
-  },
-  {
-    tag: "Perspective",
-    title: "The Future of Biological Stewardship",
-    summary:
-      "Why long-duration biological assurance is emerging as a distinct discipline within medical infrastructure.",
-    minutes: "9 min",
-  },
-  {
-    tag: "Preparedness",
-    title: "Modern Approaches to Medical Preparedness",
-    summary:
-      "A reframing of medical preparedness for mobile, multi-jurisdictional individuals and family offices.",
-    minutes: "7 min",
-  },
-];
+import { ARTICLES } from "@/lib/articles";
+import { ArticleModal } from "./ArticleModal";
 
 export const Insights = () => {
+  const [active, setActive] = useState(null);
+
   return (
     <section
       id="insights"
@@ -58,12 +32,14 @@ export const Insights = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-[color:var(--mc-line)]">
           {ARTICLES.map((a, idx) => (
-            <Reveal key={a.title} delay={idx * 80}>
-              <article
+            <Reveal key={a.id} delay={idx * 80}>
+              <button
+                type="button"
                 data-testid={`insight-card-${idx}`}
-                className="group border-b border-r border-[color:var(--mc-line)] md:[&:nth-child(2n)]:border-r-0 p-8 lg:p-10 min-h-[280px] flex flex-col justify-between transition-colors hover:bg-[color:var(--mc-canvas)] cursor-pointer"
+                onClick={() => setActive(a)}
+                className="group w-full text-left border-b border-r border-[color:var(--mc-line)] md:[&:nth-child(2n)]:border-r-0 p-8 lg:p-10 min-h-[300px] flex flex-col justify-between transition-colors hover:bg-[color:var(--mc-canvas)] cursor-pointer focus:outline-none focus-visible:bg-[color:var(--mc-canvas)]"
               >
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between w-full">
                   <span className="font-mono-tab text-[11px] uppercase tracking-[0.18em] text-[color:var(--mc-primary)]">
                     {a.tag}
                   </span>
@@ -79,7 +55,7 @@ export const Insights = () => {
                     {a.summary}
                   </p>
                 </div>
-                <div className="mt-10 flex items-center justify-between border-t border-[color:var(--mc-line)] pt-5">
+                <div className="mt-10 flex items-center justify-between border-t border-[color:var(--mc-line)] pt-5 w-full">
                   <span className="font-mono-tab text-[11px] uppercase text-[color:var(--mc-muted)]">
                     Read Perspective
                   </span>
@@ -88,11 +64,13 @@ export const Insights = () => {
                     className="text-[color:var(--mc-secondary)] transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
                   />
                 </div>
-              </article>
+              </button>
             </Reveal>
           ))}
         </div>
       </div>
+
+      {active && <ArticleModal article={active} onClose={() => setActive(null)} />}
     </section>
   );
 };

@@ -22,8 +22,8 @@ export const Footer = () => {
               </span>
             </div>
             <p className="mt-6 max-w-[420px] text-[14px] leading-relaxed text-[color:var(--mc-muted)]">
-              Institutional-grade preservation and stewardship of autologous
-              biological assets.
+              Medical infrastructure enabling individuals to preserve and
+              access their own blood when required.
             </p>
           </div>
 

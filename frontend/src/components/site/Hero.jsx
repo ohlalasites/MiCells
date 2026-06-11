@@ -71,7 +71,7 @@ export const Hero = () => {
               <span className="italic font-normal text-[color:var(--mc-primary-soft)]">
                 Through
               </span>{" "}
-              Long-Term Personal Blood Banking.
+              Autologous Blood Banking.
             </h1>
 
             <p
