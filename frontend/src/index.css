@@ -207,13 +207,10 @@ html {
     transform: translateY(0);
 }
 
-/* Hard kill any Emergent residue */
-#emergent-badge,
-[id*="emergent" i],
-[class*="emergent" i],
-a[href*="emergent.sh" i],
-a[href*="app.emergent" i],
-.made-with {
+/* Defensive: hide any residual third-party promotional badges */
+.made-with,
+[data-vendor-badge],
+[id$="-badge"][href*=".sh" i] {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
