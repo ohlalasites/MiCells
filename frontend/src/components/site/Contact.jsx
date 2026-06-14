@@ -97,10 +97,10 @@ export const Contact = () => {
               </div>
               <div>
                 <div className="font-mono-tab text-[11px] uppercase text-[color:var(--mc-muted)]">
-                  Discretion
+                  Location
                 </div>
-                <p className="mt-3 text-[13.5px] leading-relaxed text-[color:var(--mc-secondary)]">
-                  All communications are handled under strict confidentiality.
+                <p className="mt-3 font-display text-[18px] text-[color:var(--mc-secondary)]">
+                  Hong Kong SAR
                 </p>
               </div>
             </div>

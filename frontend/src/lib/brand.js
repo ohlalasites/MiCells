@@ -3,6 +3,8 @@ export const BRAND = {
   email: "info@micells.io",
   logoMark: "/brand/logo-mark.png",
   logoWordmark: "/brand/logo-wordmark.png",
+  wordmarkWhite: "/brand/wordmark-white.png",
+  wordmarkDark: "/brand/wordmark-dark.png",
   heroVideo: "/brand/hero.mp4",
   links: {
     linkedin: "https://hk.linkedin.com/company/micells",

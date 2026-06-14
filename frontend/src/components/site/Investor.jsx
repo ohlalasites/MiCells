@@ -44,9 +44,10 @@ export const Investor = () => {
             </Reveal>
             <Reveal delay={120}>
               <p className="mt-8 max-w-[640px] text-[15.5px] leading-relaxed text-white/65">
-                MiCells operates at the intersection of healthcare
-                infrastructure, preservation and long-term medical continuity.
-                Engagement is by introduction and qualified enquiry.
+                MiCells is a Hong Kong-based healthcare infrastructure company
+                operating at the intersection of preservation and long-term
+                medical continuity. Engagement is by introduction and qualified
+                enquiry.
               </p>
             </Reveal>
           </div>

@@ -6,18 +6,25 @@
         <meta name="theme-color" content="#5C7D82" />
 
         <!-- Primary SEO -->
-        <title>MiCells | Long-Term Personal Blood Banking &amp; Biological Assurance</title>
+        <title>MiCells Hong Kong | Long-Term Personal Blood Banking &amp; Biological Assurance</title>
         <meta
             name="description"
-            content="MiCells is developing a clinically governed platform for long-term personal blood banking. Preserve, monitor and maintain access to your own blood through a secure framework designed for future medical preparedness."
+            content="MiCells is a Hong Kong-based healthcare infrastructure company developing a clinically governed platform for long-term personal blood banking. Preserve, monitor and maintain access to your own blood through a secure framework designed for future medical preparedness."
         />
         <meta
             name="keywords"
-            content="personal blood banking, autologous blood banking, long-term blood preservation, blood storage, personal biological preparedness, biological assurance, medical preparedness, blood preservation platform, autologous blood preservation, future healthcare planning, healthcare infrastructure, medical certainty, blood banking Hong Kong, blood preservation Hong Kong, Greater Bay Area healthcare innovation, biological asset preservation, personal biological security, long-term healthcare planning, future medical access, blood compatibility, health preparedness, clinical blood preservation, medical resilience, preventative healthcare infrastructure, healthcare innovation Hong Kong"
+            content="MiCells Hong Kong, personal blood banking Hong Kong, autologous blood banking Hong Kong, long-term blood preservation, blood storage Hong Kong, personal biological preparedness, biological assurance, medical preparedness, blood preservation platform, autologous blood preservation, future healthcare planning, healthcare infrastructure Hong Kong, medical certainty, blood banking Hong Kong, blood preservation Hong Kong, Greater Bay Area healthcare innovation, biological asset preservation, personal biological security, long-term healthcare planning, future medical access, blood compatibility, health preparedness, clinical blood preservation, medical resilience, preventative healthcare infrastructure, healthcare innovation Hong Kong, Hong Kong biotech, Hong Kong medical infrastructure"
         />
         <meta name="author" content="MiCells" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
         <link rel="canonical" href="https://micells.io/" />
+
+        <!-- Geo / location targeting (helps Google associate the site with Hong Kong) -->
+        <meta name="geo.region" content="HK" />
+        <meta name="geo.placename" content="Hong Kong" />
+        <meta name="ICBM" content="22.3193, 114.1694" />
+        <meta name="geo.position" content="22.3193;114.1694" />
+        <meta name="DC.coverage" content="Hong Kong" />
 
         <!-- Favicon (multi-size) -->
         <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon.png" />
@@ -33,10 +40,10 @@
              WhatsApp REQUIRES absolute https URLs and width/height tags. -->
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="MiCells" />
-        <meta property="og:title" content="MiCells | Long-Term Personal Blood Banking" />
+        <meta property="og:title" content="MiCells Hong Kong | Long-Term Personal Blood Banking" />
         <meta
             property="og:description"
-            content="Building the future of personal blood banking through preservation, monitoring and long-term biological assurance."
+            content="Hong Kong-based healthcare infrastructure for long-term personal blood banking. Preservation, monitoring and biological assurance for future medical use."
         />
         <meta property="og:url" content="https://micells.io/" />
         <meta property="og:image" content="https://micells.io/brand/og-image.png" />
@@ -49,10 +56,10 @@
 
         <!-- Twitter / X card -->
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="MiCells | Long-Term Personal Blood Banking" />
+        <meta name="twitter:title" content="MiCells Hong Kong | Long-Term Personal Blood Banking" />
         <meta
             name="twitter:description"
-            content="Building the future of personal blood banking through preservation, monitoring and long-term biological assurance."
+            content="Hong Kong-based healthcare infrastructure for long-term personal blood banking. Preservation, monitoring and biological assurance."
         />
         <meta name="twitter:image" content="https://micells.io/brand/og-image.png" />
         <meta name="twitter:image:alt" content="MiCells" />
@@ -63,14 +70,55 @@
                 "@context": "https://schema.org",
                 "@type": "Organization",
                 "name": "MiCells",
+                "alternateName": "MiCells Hong Kong",
                 "url": "https://micells.io/",
                 "logo": "https://micells.io/brand/og-image.png",
+                "image": "https://micells.io/brand/og-image.png",
                 "email": "info@micells.io",
-                "description": "MiCells is a healthcare infrastructure company developing a clinically governed platform for long-term personal blood banking. Through preservation, monitoring, governance and retrieval frameworks, MiCells aims to enable individuals to maintain access to their own blood for future medical use.",
+                "description": "MiCells is a Hong Kong-based healthcare infrastructure company developing a clinically governed platform for long-term personal blood banking. Through preservation, monitoring, governance and retrieval frameworks, MiCells aims to enable individuals to maintain access to their own blood for future medical use.",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Hong Kong",
+                    "addressRegion": "Hong Kong SAR",
+                    "addressCountry": "HK"
+                },
+                "areaServed": [
+                    { "@type": "Country", "name": "Hong Kong" },
+                    { "@type": "Place", "name": "Greater Bay Area" },
+                    { "@type": "Place", "name": "Asia" }
+                ],
                 "sameAs": [
                     "https://hk.linkedin.com/company/micells",
                     "https://x.com/mi_cells"
                 ]
+            }
+        </script>
+
+        <!-- Structured Data: LocalBusiness (improves Hong Kong local SEO ranking) -->
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "MedicalBusiness",
+                "name": "MiCells",
+                "url": "https://micells.io/",
+                "image": "https://micells.io/brand/og-image.png",
+                "email": "info@micells.io",
+                "priceRange": "$$$$",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Hong Kong",
+                    "addressRegion": "Hong Kong SAR",
+                    "addressCountry": "HK"
+                },
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 22.3193,
+                    "longitude": 114.1694
+                },
+                "areaServed": {
+                    "@type": "Place",
+                    "name": "Hong Kong"
+                }
             }
         </script>
 

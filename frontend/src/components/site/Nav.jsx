@@ -23,19 +23,12 @@ export const Nav = () => {
       }`}
     >
       <div className="mc-container flex items-center justify-between h-[72px]">
-        <a href="#top" data-testid="nav-logo" className="flex items-center gap-3">
+        <a href="#top" data-testid="nav-logo" className="flex items-center">
           <img
-            src={BRAND.logoMark}
+            src={scrolled ? BRAND.wordmarkDark : BRAND.wordmarkWhite}
             alt="MiCells"
-            className="h-8 w-8 object-contain"
+            className="h-[26px] sm:h-[30px] w-auto object-contain transition-opacity duration-300"
           />
-          <span
-            className={`font-display text-[20px] tracking-tight ${
-              scrolled ? "text-[color:var(--mc-secondary)]" : "text-white"
-            }`}
-          >
-            MiCells
-          </span>
         </a>
 
         <nav className="hidden lg:flex items-center gap-9">

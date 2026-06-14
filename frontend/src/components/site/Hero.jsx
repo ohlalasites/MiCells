@@ -63,9 +63,10 @@ export const Hero = () => {
               data-testid="hero-subheadline"
               className="mt-8 max-w-[680px] text-white/80 text-[16px] md:text-[18px] leading-relaxed"
             >
-              MiCells is developing infrastructure for long-term personal
-              blood banking, enabling individuals to preserve, monitor and
-              maintain access to their own blood for future medical use.
+              Headquartered in Hong Kong, MiCells is developing infrastructure
+              for long-term personal blood banking, enabling individuals to
+              preserve, monitor and maintain access to their own blood for
+              future medical use.
             </p>
 
             <div className="mt-12 flex flex-wrap items-center gap-3">

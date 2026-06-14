@@ -16,20 +16,20 @@ export const Footer = () => {
       <div className="mc-container py-20 md:py-24">
         <div className="grid grid-cols-12 gap-x-8 gap-y-14">
           <div className="col-span-12 md:col-span-5">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center">
               <img
-                src={BRAND.logoMark}
+                src={BRAND.wordmarkDark}
                 alt="MiCells"
-                className="h-9 w-9 object-contain"
+                className="h-[36px] w-auto object-contain"
               />
-              <span className="font-display text-[22px] text-[color:var(--mc-secondary)]">
-                MiCells
-              </span>
             </div>
             <p className="mt-6 max-w-[420px] text-[14px] leading-relaxed text-[color:var(--mc-muted)]">
               Medical infrastructure enabling individuals to preserve and
               access their own blood when required.
             </p>
+            <div className="mt-6 font-mono-tab text-[11px] uppercase tracking-[0.18em] text-[color:var(--mc-muted)]">
+              Hong Kong SAR · Asia
+            </div>
           </div>
 
           <div className="col-span-6 md:col-span-3">
