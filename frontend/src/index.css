@@ -203,6 +203,19 @@ html {
     letter-spacing: 0;
 }
 
+/* Chinese typography — activated when <html lang="zh-Hant-HK"> */
+html[lang^="zh"] body {
+    font-family: "Noto Sans TC", "PingFang HK", "Manrope", -apple-system, sans-serif;
+}
+html[lang^="zh"] .font-display {
+    font-family: "Noto Serif TC", "Fraunces", "Songti TC", "Times New Roman", serif;
+    letter-spacing: 0;
+}
+html[lang^="zh"] .font-mono-tab {
+    font-family: "Noto Sans TC", ui-monospace, "SF Mono", Menlo, monospace;
+    letter-spacing: 0.06em;
+}
+
 /* Reveal animation */
 .reveal {
     opacity: 0;

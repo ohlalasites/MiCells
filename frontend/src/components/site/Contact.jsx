@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { BRAND } from "@/lib/brand";
+import { useLanguage } from "@/lib/LanguageContext";
 import { Reveal } from "./Reveal";
 import { ArrowRight, Check } from "lucide-react";
 import { toast } from "sonner";
@@ -16,62 +17,55 @@ const INITIAL = {
   enquiry_type: "general",
 };
 
-const ENQUIRY_OPTS = [
-  { v: "general", l: "General Enquiry" },
-  { v: "investor", l: "Investor Information" },
-  { v: "information", l: "Service Information" },
-  { v: "advisory", l: "Advisory / Partnership" },
-];
-
 export const Contact = () => {
+  const { t } = useLanguage();
   const [form, setForm] = useState(INITIAL);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const update = (k) => (e) => setForm((s) => ({ ...s, [k]: e.target.value }));
 
+  const ENQUIRY_OPTS = [
+    { v: "general", l: t.contact.types.general },
+    { v: "investor", l: t.contact.types.investor },
+    { v: "information", l: t.contact.types.information },
+    { v: "advisory", l: t.contact.types.advisory },
+  ];
+
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) {
-      toast.error("Please complete name, email and message.");
+      toast.error(t.contact.validationRequired);
       return;
     }
     setSubmitting(true);
     try {
       await axios.post(`${API}/enquiries`, form);
       setSubmitted(true);
-      toast.success("Enquiry received. Our team will respond from info@micells.io.");
+      toast.success(t.contact.toastSuccess);
       setForm(INITIAL);
     } catch (err) {
-      const msg = err?.response?.data?.detail || "Unable to submit enquiry. Please try again or email info@micells.io directly.";
-      toast.error(typeof msg === "string" ? msg : "Submission failed.");
+      toast.error(t.contact.toastFail);
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <section
-      id="contact"
-      data-testid="contact-section"
-      className="mc-section bg-white relative"
-    >
+    <section id="contact" data-testid="contact-section" className="mc-section bg-white relative">
       <div className="mc-container">
         <div className="grid grid-cols-12 gap-x-8 gap-y-14">
           <div className="col-span-12 md:col-span-5">
-            <div className="eyebrow">08 · Contact</div>
+            <div className="eyebrow">{t.contact.eyebrow}</div>
             <Reveal>
               <h2 className="mt-6 font-display text-[34px] md:text-[56px] leading-[1.04] tracking-tight text-[color:var(--mc-secondary)]">
-                Speak with{" "}
-                <span className="italic text-[color:var(--mc-primary)]">
-                  MiCells<sup className="mc-reg">®</sup>.
-                </span>
+                {t.contact.headingA}{" "}
+                <span className="italic text-[color:var(--mc-primary)]">{t.contact.headingB}</span>
               </h2>
             </Reveal>
             <Reveal delay={100}>
               <p className="mt-8 max-w-[460px] text-[15.5px] leading-relaxed text-[color:var(--mc-muted)]">
-                Enquiries are handled in confidence. A member of the MiCells<sup className="mc-reg">®</sup>
-                team will respond from{" "}
+                {t.contact.intro}{" "}
                 <a
                   href={`mailto:${BRAND.email}`}
                   className="text-[color:var(--mc-secondary)] underline decoration-[color:var(--mc-primary)] underline-offset-4"
@@ -84,9 +78,7 @@ export const Contact = () => {
 
             <div className="mt-12 border-t border-[color:var(--mc-line)] pt-8 grid grid-cols-2 gap-6">
               <div>
-                <div className="font-mono-tab text-[11px] uppercase text-[color:var(--mc-muted)]">
-                  Direct
-                </div>
+                <div className="font-mono-tab text-[11px] uppercase text-[color:var(--mc-muted)]">{t.contact.directLabel}</div>
                 <a
                   href={`mailto:${BRAND.email}`}
                   data-testid="contact-email-link"
@@ -96,94 +88,39 @@ export const Contact = () => {
                 </a>
               </div>
               <div>
-                <div className="font-mono-tab text-[11px] uppercase text-[color:var(--mc-muted)]">
-                  Location
-                </div>
-                <p className="mt-3 font-display text-[18px] text-[color:var(--mc-secondary)]">
-                  Hong Kong SAR
-                </p>
+                <div className="font-mono-tab text-[11px] uppercase text-[color:var(--mc-muted)]">{t.contact.locationLabel}</div>
+                <p className="mt-3 font-display text-[18px] text-[color:var(--mc-secondary)]">{t.contact.locationValue}</p>
               </div>
             </div>
           </div>
 
           <div className="col-span-12 md:col-span-7">
             {submitted ? (
-              <div
-                data-testid="contact-success"
-                className="border border-[color:var(--mc-line)] bg-[color:var(--mc-canvas)] p-10 md:p-14 flex flex-col items-start"
-              >
+              <div data-testid="contact-success" className="border border-[color:var(--mc-line)] bg-[color:var(--mc-canvas)] p-10 md:p-14 flex flex-col items-start">
                 <div className="h-10 w-10 rounded-full bg-[color:var(--mc-primary)] text-white flex items-center justify-center">
                   <Check size={18} />
                 </div>
-                <h3 className="mt-8 font-display text-[28px] tracking-tight text-[color:var(--mc-secondary)]">
-                  Enquiry received.
-                </h3>
+                <h3 className="mt-8 font-display text-[28px] tracking-tight text-[color:var(--mc-secondary)]">{t.contact.successTitle}</h3>
                 <p className="mt-4 max-w-[480px] text-[15px] leading-relaxed text-[color:var(--mc-muted)]">
-                  Thank you for contacting MiCells<sup className="mc-reg">®</sup>. A member of our team will
-                  respond from{" "}
-                  <span className="text-[color:var(--mc-secondary)]">
-                    {BRAND.email}
-                  </span>
-                  . If your enquiry is time-sensitive, please email us
-                  directly.
+                  {t.contact.successBody}{" "}
+                  <span className="text-[color:var(--mc-secondary)]">{BRAND.email}</span>
+                  {t.contact.successBodyTail}
                 </p>
-                <button
-                  data-testid="contact-reset"
-                  onClick={() => setSubmitted(false)}
-                  className="mc-btn mc-btn-ghost mt-10"
-                >
-                  Submit another enquiry
+                <button data-testid="contact-reset" onClick={() => setSubmitted(false)} className="mc-btn mc-btn-ghost mt-10">
+                  {t.contact.reset}
                 </button>
               </div>
             ) : (
-              <form
-                data-testid="contact-form"
-                onSubmit={onSubmit}
-                className="border-t border-[color:var(--mc-line)]"
-              >
-                <Field
-                  label="Name"
-                  name="name"
-                  testId="contact-input-name"
-                  value={form.name}
-                  onChange={update("name")}
-                  required
-                />
-                <Field
-                  label="Organisation"
-                  name="organisation"
-                  testId="contact-input-organisation"
-                  value={form.organisation}
-                  onChange={update("organisation")}
-                />
-                <Field
-                  label="Email"
-                  name="email"
-                  type="email"
-                  testId="contact-input-email"
-                  value={form.email}
-                  onChange={update("email")}
-                  required
-                />
-                <Field
-                  label="Country"
-                  name="country"
-                  testId="contact-input-country"
-                  value={form.country}
-                  onChange={update("country")}
-                />
-
-                <SelectField
-                  label="Enquiry Type"
-                  testId="contact-input-type"
-                  value={form.enquiry_type}
-                  onChange={update("enquiry_type")}
-                  options={ENQUIRY_OPTS}
-                />
+              <form data-testid="contact-form" onSubmit={onSubmit} className="border-t border-[color:var(--mc-line)]">
+                <Field label={t.contact.fields.name} name="name" testId="contact-input-name" value={form.name} onChange={update("name")} required />
+                <Field label={t.contact.fields.organisation} name="organisation" testId="contact-input-organisation" value={form.organisation} onChange={update("organisation")} />
+                <Field label={t.contact.fields.email} name="email" type="email" testId="contact-input-email" value={form.email} onChange={update("email")} required />
+                <Field label={t.contact.fields.country} name="country" testId="contact-input-country" value={form.country} onChange={update("country")} />
+                <SelectField label={t.contact.fields.enquiryType} testId="contact-input-type" value={form.enquiry_type} onChange={update("enquiry_type")} options={ENQUIRY_OPTS} />
 
                 <div className="grid grid-cols-12 gap-x-6 py-6 border-b border-[color:var(--mc-line)]">
                   <label className="col-span-12 md:col-span-4 font-mono-tab text-[11px] uppercase tracking-[0.18em] text-[color:var(--mc-muted)] pt-3">
-                    Message
+                    {t.contact.fields.message}
                   </label>
                   <textarea
                     data-testid="contact-input-message"
@@ -191,16 +128,14 @@ export const Contact = () => {
                     rows={5}
                     value={form.message}
                     onChange={update("message")}
-                    placeholder="Briefly describe the nature of your enquiry."
+                    placeholder={t.contact.fields.messagePlaceholder}
                     className="col-span-12 md:col-span-8 bg-transparent border-0 focus:outline-none text-[15.5px] text-[color:var(--mc-secondary)] placeholder:text-[color:var(--mc-muted)]/60 resize-none"
                   />
                 </div>
 
                 <div className="mt-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                   <p className="text-[12px] text-[color:var(--mc-muted)] max-w-[420px] leading-relaxed">
-                    By submitting, you consent to MiCells<sup className="mc-reg">®</sup> contacting you in
-                    relation to this enquiry. We do not share enquirer details
-                    with third parties.
+                    {t.contact.disclaimer}
                   </p>
                   <button
                     type="submit"
@@ -208,7 +143,7 @@ export const Contact = () => {
                     data-testid="contact-submit"
                     className="mc-btn mc-btn-primary disabled:opacity-60"
                   >
-                    {submitting ? "Submitting…" : "Send Enquiry"}
+                    {submitting ? t.contact.submitting : t.contact.submit}
                     <ArrowRight size={16} />
                   </button>
                 </div>
@@ -227,8 +162,7 @@ const Field = ({ label, name, type = "text", value, onChange, required, testId }
       htmlFor={name}
       className="col-span-12 md:col-span-4 font-mono-tab text-[11px] uppercase tracking-[0.18em] text-[color:var(--mc-muted)]"
     >
-      {label}
-      {required ? "*" : ""}
+      {label}{required ? "*" : ""}
     </label>
     <input
       id={name}
@@ -255,9 +189,7 @@ const SelectField = ({ label, value, onChange, options, testId }) => (
       className="col-span-12 md:col-span-8 bg-transparent border-0 focus:outline-none text-[16px] text-[color:var(--mc-secondary)] py-1 pr-4 cursor-pointer"
     >
       {options.map((o) => (
-        <option key={o.v} value={o.v}>
-          {o.l}
-        </option>
+        <option key={o.v} value={o.v}>{o.l}</option>
       ))}
     </select>
   </div>

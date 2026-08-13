@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { X } from "lucide-react";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export const ArticleModal = ({ article, onClose }) => {
+  const { t } = useLanguage();
+
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === "Escape") onClose();
@@ -35,7 +38,7 @@ export const ArticleModal = ({ article, onClose }) => {
             <button
               data-testid="article-modal-close"
               onClick={onClose}
-              aria-label="Close"
+              aria-label={t.article.close}
               className="h-9 w-9 rounded-full border border-[color:var(--mc-line)] text-[color:var(--mc-secondary)] hover:bg-[color:var(--mc-canvas)] flex items-center justify-center transition-colors"
             >
               <X size={16} />
@@ -52,10 +55,7 @@ export const ArticleModal = ({ article, onClose }) => {
             <div className="mt-6 hairline" />
             <div className="mt-10 space-y-7">
               {article.body.map((p, i) => (
-                <p
-                  key={i}
-                  className="text-[16px] md:text-[17px] leading-[1.7] text-[color:var(--mc-secondary)]"
-                >
+                <p key={i} className="text-[16px] md:text-[17px] leading-[1.7] text-[color:var(--mc-secondary)]">
                   {p}
                 </p>
               ))}
@@ -63,8 +63,7 @@ export const ArticleModal = ({ article, onClose }) => {
 
             <div className="mt-14 pt-8 border-t border-[color:var(--mc-line)] flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
               <p className="text-[13px] text-[color:var(--mc-muted)] max-w-[420px]">
-                Published by MiCells<sup className="mc-reg">®</sup>. For enquiries on any of the themes
-                discussed, please contact us.
+                {t.article.published}
               </p>
               <a
                 href="#contact"
@@ -72,7 +71,7 @@ export const ArticleModal = ({ article, onClose }) => {
                 data-testid="article-modal-cta"
                 className="mc-btn mc-btn-primary"
               >
-                Speak with MiCells<sup className="mc-reg mc-reg-onbtn">®</sup>
+                {t.article.cta}
               </a>
             </div>
           </article>

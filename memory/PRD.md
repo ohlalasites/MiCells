@@ -51,13 +51,25 @@ Build a world-class institutional website for MiCells, a medical biotechnology c
 - Page has zero references to "emergent" in DOM.
 - Hero, all 12 sections rendering correctly at 1440×900 + 1920×800.
 
+## Implemented (2026-02 → 2026-06, later sessions)
+- **Resend email integration** — `POST /api/enquiries` now emails `info@micells.io` in real time (API key in backend/.env, verified sender domain).
+- **Hero video optimisation** — compressed 26MB → 8.1MB, `faststart` + `preload` for instant load.
+- **Service Worker killer** in `index.html` — purges legacy website cache (DO NOT REMOVE).
+- **Hong Kong local SEO** — OpenGraph og-image (WhatsApp preview), JSON-LD MedicalBusiness schema, HK keywords.
+- **Registered trademark** — every "MiCells" mention site-wide carries "®" (JSX `<sup>®</sup>`, legal strings, i18n dictionary). Verified no bare mentions remain.
+- **Full-screen modals** — Insights articles, Privacy Policy, Terms of Use (`lib/articles.js`, `lib/legal.js`).
+- **Bilingual i18n (EN / 繁體中文)** — `lib/i18n.js` + `lib/LanguageContext.jsx`, `EN | 繁` pill toggle in Nav, all site components consume context. **Visually verified 2026-06-13**: hero, framework, contact all render correctly in both languages with ® intact.
+
+## Verified (2026-06-13, fork session)
+- Screenshot verification of EN and 繁 language states: toggle works, Traditional Chinese typography renders cleanly, no layout overflow, ® present in both languages.
+- No bare "MiCells" (without ®) in i18n.js, articles.js, legal.js, or components.
+- Services all RUNNING; production live at micells.io (user must Re-deploy to push latest i18n + ® changes live).
+
 ## Deferred Backlog
-- **P0** — Wire Resend (or SendGrid) integration so submissions actually email `info@micells.io` in real time. Currently stored in DB only.
 - **P1** — Replace "To Be Announced" advisory seats with named advisors as they are appointed (with bios and headshots).
 - **P1** — Wire real investor deck PDF behind the "Request Investor Information" gate when ready.
 - **P2** — Add Google Analytics 4 / Plausible once measurement ID is provided.
-- **P2** — Insights detail pages (currently summary cards only).
-- **P2** — `/privacy` and `/terms` legal pages (currently `#` placeholders).
+- **P2** — `hreflang` / `lang` meta tags per language for HK bilingual SEO.
 - **P3** — Multi-language (EN/AR/CN) for international investors.
 
 ## Next Tasks
