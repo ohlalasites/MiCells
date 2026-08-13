@@ -51,7 +51,7 @@ export const Framework = () => {
             </Reveal>
             <Reveal delay={120}>
               <p className="mt-8 max-w-[640px] text-[15.5px] leading-relaxed text-[color:var(--mc-muted)]">
-                The MiCells framework is designed to be defensible to
+                The MiCells<sup className="mc-reg">®</sup> framework is designed to be defensible to
                 clinicians, auditors and regulators alike.
               </p>
             </Reveal>

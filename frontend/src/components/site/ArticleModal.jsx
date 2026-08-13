@@ -63,7 +63,7 @@ export const ArticleModal = ({ article, onClose }) => {
 
             <div className="mt-14 pt-8 border-t border-[color:var(--mc-line)] flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
               <p className="text-[13px] text-[color:var(--mc-muted)] max-w-[420px]">
-                Published by MiCells. For enquiries on any of the themes
+                Published by MiCells<sup className="mc-reg">®</sup>. For enquiries on any of the themes
                 discussed, please contact us.
               </p>
               <a
@@ -72,7 +72,7 @@ export const ArticleModal = ({ article, onClose }) => {
                 data-testid="article-modal-cta"
                 className="mc-btn mc-btn-primary"
               >
-                Speak with MiCells
+                Speak with MiCells<sup className="mc-reg mc-reg-onbtn">®</sup>
               </a>
             </div>
           </article>

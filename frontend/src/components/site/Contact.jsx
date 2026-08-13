@@ -64,13 +64,13 @@ export const Contact = () => {
               <h2 className="mt-6 font-display text-[34px] md:text-[56px] leading-[1.04] tracking-tight text-[color:var(--mc-secondary)]">
                 Speak with{" "}
                 <span className="italic text-[color:var(--mc-primary)]">
-                  MiCells.
+                  MiCells<sup className="mc-reg">®</sup>.
                 </span>
               </h2>
             </Reveal>
             <Reveal delay={100}>
               <p className="mt-8 max-w-[460px] text-[15.5px] leading-relaxed text-[color:var(--mc-muted)]">
-                Enquiries are handled in confidence. A member of the MiCells
+                Enquiries are handled in confidence. A member of the MiCells<sup className="mc-reg">®</sup>
                 team will respond from{" "}
                 <a
                   href={`mailto:${BRAND.email}`}
@@ -119,7 +119,7 @@ export const Contact = () => {
                   Enquiry received.
                 </h3>
                 <p className="mt-4 max-w-[480px] text-[15px] leading-relaxed text-[color:var(--mc-muted)]">
-                  Thank you for contacting MiCells. A member of our team will
+                  Thank you for contacting MiCells<sup className="mc-reg">®</sup>. A member of our team will
                   respond from{" "}
                   <span className="text-[color:var(--mc-secondary)]">
                     {BRAND.email}
@@ -198,7 +198,7 @@ export const Contact = () => {
 
                 <div className="mt-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                   <p className="text-[12px] text-[color:var(--mc-muted)] max-w-[420px] leading-relaxed">
-                    By submitting, you consent to MiCells contacting you in
+                    By submitting, you consent to MiCells<sup className="mc-reg">®</sup> contacting you in
                     relation to this enquiry. We do not share enquirer details
                     with third parties.
                   </p>

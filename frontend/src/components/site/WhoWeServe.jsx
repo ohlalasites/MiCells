@@ -31,7 +31,7 @@ export const WhoWeServe = () => {
             </Reveal>
             <Reveal delay={120}>
               <p className="mt-8 max-w-[640px] text-[15.5px] leading-relaxed text-[color:var(--mc-muted)]">
-                MiCells supports individuals and families seeking long-term
+                MiCells<sup className="mc-reg">®</sup> supports individuals and families seeking long-term
                 biological preparedness through clinically governed personal
                 blood banking.
               </p>

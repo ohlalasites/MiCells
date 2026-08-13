@@ -23,12 +23,20 @@ export const Nav = () => {
       }`}
     >
       <div className="mc-container flex items-center justify-between h-[72px]">
-        <a href="#top" data-testid="nav-logo" className="flex items-center">
+        <a href="#top" data-testid="nav-logo" className="flex items-start">
           <img
             src={scrolled ? BRAND.wordmarkDark : BRAND.wordmarkWhite}
-            alt="MiCells"
+            alt="MiCells®"
             className="h-[26px] sm:h-[30px] w-auto object-contain transition-opacity duration-300"
           />
+          <sup
+            aria-hidden="true"
+            className={`ml-[3px] mt-[6px] text-[9px] sm:text-[10px] leading-none transition-colors duration-300 ${
+              scrolled ? "text-[color:var(--mc-secondary)]" : "text-white"
+            }`}
+          >
+            ®
+          </sup>
         </a>
 
         <nav className="hidden lg:flex items-center gap-9">

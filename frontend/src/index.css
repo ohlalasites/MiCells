@@ -193,6 +193,16 @@ html {
     border-radius: 2px;
 }
 
+/* Registered trademark mark shown after every "MiCells" occurrence */
+.mc-reg {
+    font-size: 0.5em;
+    vertical-align: super;
+    line-height: 0;
+    margin-left: 0.08em;
+    font-weight: 500;
+    letter-spacing: 0;
+}
+
 /* Reveal animation */
 .reveal {
     opacity: 0;

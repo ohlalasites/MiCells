@@ -16,12 +16,18 @@ export const Footer = () => {
       <div className="mc-container py-20 md:py-24">
         <div className="grid grid-cols-12 gap-x-8 gap-y-14">
           <div className="col-span-12 md:col-span-5">
-            <div className="flex items-center">
+            <div className="flex items-start">
               <img
                 src={BRAND.wordmarkDark}
-                alt="MiCells"
+                alt="MiCells®"
                 className="h-[36px] w-auto object-contain"
               />
+              <sup
+                aria-hidden="true"
+                className="ml-[3px] mt-[8px] text-[11px] leading-none text-[color:var(--mc-secondary)]"
+              >
+                ®
+              </sup>
             </div>
             <p className="mt-6 max-w-[420px] text-[14px] leading-relaxed text-[color:var(--mc-muted)]">
               Medical infrastructure enabling individuals to preserve and
@@ -98,7 +104,7 @@ export const Footer = () => {
 
         <div className="mt-20 pt-8 border-t border-[color:var(--mc-line)] flex items-center">
           <span className="font-mono-tab text-[11px] uppercase text-[color:var(--mc-muted)]">
-            © {year} MiCells. All rights reserved.
+            © {year} MiCells<sup className="mc-reg">®</sup>. All rights reserved.
           </span>
         </div>
       </div>
