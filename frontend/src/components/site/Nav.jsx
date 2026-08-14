@@ -21,6 +21,7 @@ export const Nav = () => {
     { key: "process", href: "#process" },
     { key: "advisory", href: "#advisory" },
     { key: "insights", href: "#insights" },
+    { key: "register", href: "#register" },
     { key: "partners", href: "#investors" },
   ];
 

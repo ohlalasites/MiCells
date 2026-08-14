@@ -60,10 +60,24 @@ Build a world-class institutional website for MiCells, a medical biotechnology c
 - **Full-screen modals** — Insights articles, Privacy Policy, Terms of Use (`lib/articles.js`, `lib/legal.js`).
 - **Bilingual i18n (EN / 繁體中文)** — `lib/i18n.js` + `lib/LanguageContext.jsx`, `EN | 繁` pill toggle in Nav, all site components consume context. **Visually verified 2026-06-13**: hero, framework, contact all render correctly in both languages with ® intact.
 
+## Implemented (2026-08-14) — Expression of Interest (EOI)
+- **New section 07 · Register Interest** (`/app/frontend/src/components/site/Register.jsx`) between Insights and Partners. Renumbered Partners → 08, Contact → 09.
+- **Assurance triad** — Non-binding · Held in confidence · Forecasting purpose. Lucide icons (ShieldCheck / Lock / LineChart).
+- **Grouped form** — 01 About You · 02 Personal Profile · 03 Interest & Timing · 04 Optional. Fields: name, email, phone (optional), country, age band, blood type, household coverage + dynamic count input, motivation, timeline, service tier, referral, notes.
+- **Non-binding T&C block** with required consent checkbox. Submission without consent shows a validation toast and does NOT hit the API.
+- **Backend** — `POST /api/interest` (201, consent=false → 422), `GET /api/interest`. Stored in new MongoDB collection `interest_registrations`. Emails info@micells.io via existing Resend integration with a dedicated EOI-branded HTML template. Language recorded (`en` / `zh`).
+- **Full EN / 繁 translations** in `lib/i18n.js` including all field labels, all select option labels, T&C copy, success card, toasts.
+- **Nav** — new `Register` / `登記` link (desktop + mobile) between Insights and Partners.
+- **Verified 2026-08-14** — 16/16 pytest cases pass, Playwright E2E 100% on EN + ZH, ® mark intact, existing `/api/enquiries` unaffected.
+
 ## Verified (2026-06-13, fork session)
 - Screenshot verification of EN and 繁 language states: toggle works, Traditional Chinese typography renders cleanly, no layout overflow, ® present in both languages.
 - No bare "MiCells" (without ®) in i18n.js, articles.js, legal.js, or components.
 - Services all RUNNING; production live at micells.io (user must Re-deploy to push latest i18n + ® changes live).
+
+## Verified (2026-08-14, EOI session)
+- Backend: `pytest /app/backend/tests/` → 16/16 green. Curl verified 201, 422 (consent=false), 422 (missing email), GET listing, zh language round-trip. Resend delivered production emails.
+- Frontend: full Playwright E2E verified nav link, section rendering, assurance cards, all form controls, household_count reveal on non-self coverage, consent validation, success state + reset, EN ↔ 繁 toggle across every string in the section.
 
 ## Deferred Backlog
 - **P1** — Replace "To Be Announced" advisory seats with named advisors as they are appointed (with bios and headshots).

@@ -1,0 +1,32 @@
+{
+  "summary": "Full e2e verification of new Expression of Interest (EOI) feature on MiCells site. Backend: 16/16 pytest cases green — POST /api/interest (valid 201, consent=false 422, missing name/email 422, invalid email 422, language='zh' persists), GET /api/interest returns records without _id leak, /api/health email_provider_ready=true, /api/enquiries no regression. Frontend Playwright E2E: nav shows 'Register' link in EN and '登記' in ZH between Insights and Partners in correct DOM order; clicking scrolls to #register; eyebrow '07 · REGISTER INTEREST' + heading 'Register your expression of interest.'; 3 assurance cards present; household_count input toggles correctly on 'Whole family'; empty-name/email submit does not hit API; missing-consent submit shows toast 'Please tick the consent box to submit.' and does not hit API; full valid submission POSTs to /api/interest, success card renders with 'Thank you.' + info@micells.io, reset button returns to form; record retrievable via GET /api/interest matching name+email. ZH mode: eyebrow '07 · 意向登記', heading '登記您的 意向表達。', submit '提交意向登記', nav '登記'; ZH submission persists language='zh'. Partners eyebrow renders as '08 · PARTNERS'/'08 · 合作夥伴' (via font-mono-tab class in Investor.jsx, not the shared `.eyebrow` class — cosmetic difference, still visible). Contact eyebrow '09 · CONTACT'/'09 · 聯絡' via `.eyebrow` class. MiCells® ® mark intact throughout.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Investor / Partners section", "issues": ["Eyebrow '08 · PARTNERS' is rendered via font-mono-tab spans rather than the shared `.eyebrow` utility class used by every other section (Contact uses `.eyebrow`). Consider standardising for consistency and easier selector-based testing."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_interest.py",
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Register.jsx line 50: client-side guard checks !form.name.trim() but the input has `required` attribute — browser native validation will fire first and the JS toast (r.validationRequired) will rarely surface. Consider removing the HTML `required` OR the JS check for unified UX.",
+    "Register.jsx uses direct axios call to `${process.env.REACT_APP_BACKEND_URL}/api/interest`; error path only shows generic toast (r.toastFail). Consider surfacing 422 detail messages so testers see which field failed.",
+    "server.py: consider validating InterestCreate.language against LANGS = ['en','zh'] to prevent arbitrary strings up to 8 chars from being stored.",
+    "server.py duplicates enquiry vs interest email/html helpers (~90% overlap in table row templating). Extract into shared _build_email_shell(rows, title, message_or_notes) helper to reduce ~80 lines.",
+    "server.py still uses deprecated @app.on_event('shutdown') — migrate to lifespan (carried over from iteration 1)."
+  ],
+  "updated_files": ["/app/backend/tests/test_interest.py"],
+  "success_rate": {"backend": "100% (16/16 pytest)", "frontend": "100% on all EOI functional checks"},
+  "test_credentials": "n/a (no auth)",
+  "seed_data_creation": "Created multiple TEST_EOI_* and TEST_ui_* records in MongoDB collection `interest_registrations` via pytest and UI submissions (both EN and ZH). No cleanup endpoint exists.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "EOI feature fully working end-to-end. Backend tests split into two files: /app/backend/tests/backend_test.py (enquiries + health, iteration 1) and /app/backend/tests/test_interest.py (EOI + zh + enquiry regression, iteration 2). Run with: pytest /app/backend/tests/ -v. All 16 tests pass. Frontend has no functional bugs; only cosmetic note is that Investor section's eyebrow uses font-mono-tab spans instead of the shared `.eyebrow` class.",
+  "rca of the issue": "n/a — no unresolved bugs."
+}

@@ -6,6 +6,7 @@ import { Process } from "@/components/site/Process";
 import { Framework } from "@/components/site/Framework";
 import { Advisory } from "@/components/site/Advisory";
 import { Insights } from "@/components/site/Insights";
+import { Register } from "@/components/site/Register";
 import { Investor } from "@/components/site/Investor";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
@@ -22,6 +23,7 @@ export default function Home() {
         <Framework />
         <Advisory />
         <Insights />
+        <Register />
         <Investor />
         <Contact />
       </main>
