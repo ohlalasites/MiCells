@@ -67,7 +67,7 @@ export const Hero = () => {
             </p>
 
             <div className="mt-12 flex flex-wrap items-center gap-3">
-              <a href="#contact" data-testid="hero-cta-primary" className="mc-btn mc-btn-onvideo">
+              <a href="#register" data-testid="hero-cta-primary" className="mc-btn mc-btn-onvideo">
                 {t.hero.primaryCta}
                 <ArrowRight size={16} />
               </a>

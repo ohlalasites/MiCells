@@ -22,7 +22,7 @@ const en = {
     line3: "Autologous Blood Banking.",
     subheadline:
       "Headquartered in Hong Kong, MiCells® is developing infrastructure for long-term personal blood banking, enabling individuals to preserve, monitor and maintain access to their own blood for future medical use.",
-    primaryCta: "Request Information",
+    primaryCta: "Register",
     secondaryCta: "Our Framework",
   },
   pillars: {
@@ -361,7 +361,7 @@ const zh = {
     line3: "自體血液儲存。",
     subheadline:
       "MiCells® 總部設於香港,致力打造長期個人血液儲存的基礎設施,讓個人得以保存、監察並持續掌握自身血液,以備未來醫療所需。",
-    primaryCta: "索取資料",
+    primaryCta: "登記",
     secondaryCta: "了解框架",
   },
   pillars: {
