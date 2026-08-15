@@ -329,7 +329,6 @@ const en = {
       "12F / Room 14A, Fonda Building",
       "37–39 Au Pui Wan Street",
       "Fo Tan, Sha Tin, New Territories",
-      "Hong Kong",
     ],
     location: "Hong Kong SAR · Asia",
     contact: "Contact",
@@ -654,7 +653,7 @@ const zh = {
   footer: {
     description: "醫療基礎設施,讓個人於有需要時保存並取用自身血液。",
     address: [
-      "香港新界沙田火炭",
+      "新界沙田火炭",
       "坳背灣街 37–39 號",
       "豐達中心 12 樓 14A 室",
     ],
