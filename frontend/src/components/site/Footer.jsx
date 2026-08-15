@@ -24,7 +24,17 @@ export const Footer = () => {
             <p className="mt-6 max-w-[420px] text-[14px] leading-relaxed text-[color:var(--mc-muted)]">
               {t.footer.description}
             </p>
-            <div className="mt-6 font-mono-tab text-[11px] uppercase tracking-[0.18em] text-[color:var(--mc-muted)]">
+            <address
+              data-testid="footer-address"
+              className="mt-8 not-italic text-[13.5px] leading-[1.7] text-[color:var(--mc-secondary)]"
+            >
+              {t.footer.address.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </address>
+            <div className="mt-4 font-mono-tab text-[11px] uppercase tracking-[0.18em] text-[color:var(--mc-muted)]">
               {t.footer.location}
             </div>
           </div>
