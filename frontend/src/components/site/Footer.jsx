@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { BRAND } from "@/lib/brand";
 import { useLanguage } from "@/lib/LanguageContext";
 import { Linkedin } from "lucide-react";
@@ -16,7 +17,7 @@ export const Footer = () => {
     <footer data-testid="site-footer" className="bg-[color:var(--mc-canvas)] border-t border-[color:var(--mc-line)]">
       <div className="mc-container py-20 md:py-24">
         <div className="grid grid-cols-12 gap-x-8 gap-y-14">
-          <div className="col-span-12 md:col-span-5">
+          <div className="col-span-12 md:col-span-4">
             <div className="flex items-start">
               <img src={BRAND.wordmarkDark} alt="MiCells®" className="h-[36px] w-auto object-contain" />
               <sup aria-hidden="true" className="ml-[3px] mt-[8px] text-[11px] leading-none text-[color:var(--mc-secondary)]">®</sup>
@@ -39,7 +40,7 @@ export const Footer = () => {
             </div>
           </div>
 
-          <div className="col-span-6 md:col-span-3">
+          <div className="col-span-6 md:col-span-2">
             <div className="font-mono-tab text-[11px] uppercase text-[color:var(--mc-muted)]">{t.footer.contact}</div>
             <a
               href={`mailto:${BRAND.email}`}
@@ -48,6 +49,19 @@ export const Footer = () => {
             >
               {BRAND.email}
             </a>
+          </div>
+
+          <div className="col-span-6 md:col-span-2">
+            <div className="font-mono-tab text-[11px] uppercase text-[color:var(--mc-muted)]">{t.footer.infrastructure}</div>
+            <div className="mt-5 flex flex-col gap-3">
+              <Link
+                to="/midnight-relay"
+                data-testid="footer-midnight-relay"
+                className="text-[14px] text-[color:var(--mc-secondary)] hover:text-[color:var(--mc-primary)]"
+              >
+                {t.footer.midnightRelay}
+              </Link>
+            </div>
           </div>
 
           <div className="col-span-6 md:col-span-2">
@@ -74,7 +88,7 @@ export const Footer = () => {
             </div>
           </div>
 
-          <div className="col-span-12 md:col-span-2">
+          <div className="col-span-6 md:col-span-2">
             <div className="font-mono-tab text-[11px] uppercase text-[color:var(--mc-muted)]">{t.footer.legal}</div>
             <div className="mt-5 flex flex-col gap-3">
               <button

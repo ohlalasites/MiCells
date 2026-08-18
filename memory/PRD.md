@@ -69,6 +69,20 @@ Build a world-class institutional website for MiCells, a medical biotechnology c
 - **Full EN / 繁 translations** in `lib/i18n.js` including all field labels, all select option labels, T&C copy, success card, toasts.
 - **Nav** — new `Register` / `登記` link (desktop + mobile) between Insights and Partners.
 - **Verified 2026-08-14** — 16/16 pytest cases pass, Playwright E2E 100% on EN + ZH, ® mark intact, existing `/api/enquiries` unaffected.
+- **Hero CTA** — Home page white pill button changed from "Request Information" → **Register** / **登記** and links to `#register`.
+
+## Implemented (2026-08-15) — Footer address
+- Added multi-line HK office address as semantic `<address>` element above `HONG KONG SAR · ASIA` in the footer.
+- EN: `12F / Room 14A, Fonda Building · 37–39 Au Pui Wan Street · Fo Tan, Sha Tin, New Territories`.
+- ZH: `新界沙田火炭 · 坳背灣街 37–39 號 · 豐達中心 12 樓 14A 室`.
+
+## Implemented (2026-08-18) — MiCells Midnight Relay page
+- **New route** `/midnight-relay` — full public-node infrastructure page for the Midnight Network relay MiCells® operates in Singapore.
+- **Aesthetic** — kept clinical MiCells light theme with dark inserts for code / terminal / specs (institutional, not neon-crypto). English-only page.
+- **7 sections** — Hero (status pill + live stats + multiaddr copy card + peer id copy) · Strategic Vision (3 cards) · Hardware & Software (dark 2-col spec grid) · Connection Guide (Bash / Config File / Docker tabs with dark code area, per-tab copy button, firewall notice) · Network Reach (stylised SVG world map: dot-grid background, animated arcs from Singapore to Tokyo/Sydney/Frankfurt/London/N.Virginia with pulsing home node) · FAQ (6-item accordion, single-open, first-open-by-default) · CTA (dark: Copy Multiaddr, Midnight docs external link, mailto:info@micells.io Contact Infrastructure Team).
+- **Router + navigation** — added Nav link `Midnight Relay` (desktop + mobile), footer Infrastructure column. Nav uses `useLocation` to force scrolled visual state on non-home routes and prefixes hash anchors with `/` so hash links from `/midnight-relay` cleanly navigate back to `/` and scroll to the anchor.
+- **Static-first, extension-ready** — `/app/frontend/src/lib/relay.js` holds NODE, LIVE_STATS, HARDWARE, SOFTWARE, VISION_CARDS, FAQ, PEER_HUBS. MidnightRelay.jsx has an inline `EXTENSION POINT` comment block showing how to wire live metrics from a future `/api/midnight/metrics` endpoint.
+- **Verified 2026-08-18** — testing agent full E2E 100% pass. Copy-to-clipboard, tab switching, FAQ accordion, cross-page SPA nav, mobile viewport (390x844) all green. No backend changes.
 
 ## Verified (2026-06-13, fork session)
 - Screenshot verification of EN and 繁 language states: toggle works, Traditional Chinese typography renders cleanly, no layout overflow, ® present in both languages.

@@ -1,29 +1,42 @@
 import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { BRAND } from "@/lib/brand";
 import { useLanguage } from "@/lib/LanguageContext";
 import { LANGS, LANG_LABEL } from "@/lib/i18n";
 import { Menu, X } from "lucide-react";
 
 export const Nav = () => {
-  const [scrolled, setScrolled] = useState(false);
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
+  const [scrolled, setScrolled] = useState(!isHome);
   const [open, setOpen] = useState(false);
   const { lang, setLang, t } = useLanguage();
 
   useEffect(() => {
+    if (!isHome) {
+      setScrolled(true);
+      return;
+    }
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isHome]);
+
+  // Anchor hrefs: on home use plain hash, off home use full path so the
+  // browser navigates back to home and scrolls to the anchor natively.
+  const anchor = (hash) => (isHome ? hash : `/${hash}`);
 
   const NAV_ITEMS = [
-    { key: "framework", href: "#framework" },
-    { key: "process", href: "#process" },
-    { key: "advisory", href: "#advisory" },
-    { key: "insights", href: "#insights" },
-    { key: "register", href: "#register" },
-    { key: "partners", href: "#investors" },
+    { key: "framework", href: anchor("#framework") },
+    { key: "process", href: anchor("#process") },
+    { key: "advisory", href: anchor("#advisory") },
+    { key: "insights", href: anchor("#insights") },
+    { key: "register", href: anchor("#register") },
+    { key: "partners", href: anchor("#investors") },
   ];
+
+  const relayLabel = "Midnight Relay";
 
   return (
     <header
@@ -35,7 +48,12 @@ export const Nav = () => {
       }`}
     >
       <div className="mc-container flex items-center justify-between h-[72px]">
-        <a href="#top" data-testid="nav-logo" className="flex items-start">
+        <Link
+          to="/"
+          data-testid="nav-logo"
+          className="flex items-start"
+          aria-label="MiCells home"
+        >
           <img
             src={scrolled ? BRAND.wordmarkDark : BRAND.wordmarkWhite}
             alt="MiCells®"
@@ -49,12 +67,12 @@ export const Nav = () => {
           >
             ®
           </sup>
-        </a>
+        </Link>
 
-        <nav className="hidden lg:flex items-center gap-9">
+        <nav className="hidden lg:flex items-center gap-8">
           {NAV_ITEMS.map((n) => (
             <a
-              key={n.href}
+              key={n.key}
               href={n.href}
               data-testid={`nav-link-${n.key}`}
               className={`text-[13px] tracking-wide transition-colors ${
@@ -66,12 +84,25 @@ export const Nav = () => {
               {t.nav[n.key]}
             </a>
           ))}
+          <Link
+            to="/midnight-relay"
+            data-testid="nav-link-relay"
+            className={`text-[13px] tracking-wide transition-colors ${
+              pathname === "/midnight-relay"
+                ? "text-[color:var(--mc-primary)]"
+                : scrolled
+                ? "text-[color:var(--mc-secondary)] hover:text-[color:var(--mc-primary)]"
+                : "text-white/85 hover:text-white"
+            }`}
+          >
+            {relayLabel}
+          </Link>
         </nav>
 
         <div className="hidden lg:flex items-center gap-4">
           <LangToggle scrolled={scrolled} lang={lang} setLang={setLang} aria={t.nav.toggleAria} />
           <a
-            href="#contact"
+            href={anchor("#contact")}
             data-testid="nav-cta-contact"
             className={`mc-btn ${scrolled ? "mc-btn-primary" : "mc-btn-onvideo"}`}
           >
@@ -97,7 +128,7 @@ export const Nav = () => {
           <div className="mc-container py-6 flex flex-col gap-4">
             {NAV_ITEMS.map((n) => (
               <a
-                key={n.href}
+                key={n.key}
                 href={n.href}
                 onClick={() => setOpen(false)}
                 data-testid={`nav-mobile-link-${n.key}`}
@@ -106,8 +137,16 @@ export const Nav = () => {
                 {t.nav[n.key]}
               </a>
             ))}
+            <Link
+              to="/midnight-relay"
+              onClick={() => setOpen(false)}
+              data-testid="nav-mobile-link-relay"
+              className="text-[15px] text-[color:var(--mc-secondary)] py-2 border-b border-[color:var(--mc-line)]"
+            >
+              {relayLabel}
+            </Link>
             <a
-              href="#contact"
+              href={anchor("#contact")}
               onClick={() => setOpen(false)}
               data-testid="nav-mobile-cta-contact"
               className="mc-btn mc-btn-primary mt-2 self-start"

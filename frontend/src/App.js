@@ -2,6 +2,7 @@ import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
 import Home from "@/pages/Home";
+import MidnightRelay from "@/pages/MidnightRelay";
 import { LanguageProvider } from "@/lib/LanguageContext";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/midnight-relay" element={<MidnightRelay />} />
           </Routes>
         </BrowserRouter>
         <Toaster

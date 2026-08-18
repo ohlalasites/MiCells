@@ -1,0 +1,24 @@
+{
+  "summary": "Full E2E frontend regression of the new /midnight-relay page. All acceptance criteria pass: page renders with all sections, multiaddr + peer-id + snippet clipboard copies work and toast, tab switching swaps snippets, FAQ accordion single-open with first-open-by-default works, cross-page hash nav returns to home /#framework, SPA nav from home to relay works, language toggle updates nav labels, footer Midnight Relay link navigates via SPA, CTA buttons (mailto info@micells.io with subject, docs link target=_blank to https://docs.midnight.network/, copy multiaddr) all correct, mobile viewport (390x844) renders hero/map/tabs/FAQ/mobile-nav-relay link.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "/midnight-relay mobile 390px - RelayConnect tabs bar", "issues": ["Tabs row (Bash / Config File / Docker) plus right-side Copy button is a bit tight at 390px; Copy button visually pushed to edge though still clickable. Consider wrapping or moving Copy button below tabs on mobile."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Nav.jsx: On non-home routes scrolled state is forced via useEffect but the transparent bg-transparent momentarily flashes before hydration. Consider initialising useState(!isHome) so initial paint on /midnight-relay directly renders white nav. Minor.",
+    "RelayHero.jsx: navigator.clipboard is used without a fallback for non-secure contexts; acceptable since prod is HTTPS.",
+    "MidnightRelay.jsx uses document.title in useEffect only, which is fine for SPA; consider adding <Helmet> or meta description for SEO in future."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (not requested)", "frontend": "100%"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Midnight Relay page /midnight-relay is fully functional. All data-testids in the request map exist and behave correctly. Console shows only a benign React 'fetchpriority vs fetchPriority' warning unrelated to this feature. Backend endpoints not touched. Home page register/register-interest flow was not re-tested (previous iteration_2 covered EOI green)."
+}
