@@ -36,7 +36,7 @@ export const Nav = () => {
     { key: "partners", href: anchor("#investors") },
   ];
 
-  const relayLabel = "Midnight Relay";
+  const relayLabel = "Infrastructure";
 
   return (
     <header

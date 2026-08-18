@@ -34,7 +34,7 @@ import { RelayCta } from "@/components/relay/RelayCta";
 
 export default function MidnightRelay() {
   useEffect(() => {
-    document.title = "MiCells Midnight Relay · Public Node Infrastructure";
+    document.title = "Infrastructure · MiCells®";
     window.scrollTo(0, 0);
   }, []);
 
