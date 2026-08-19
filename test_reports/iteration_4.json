@@ -1,0 +1,18 @@
+{
+  "summary": "Verified both RelayMap.jsx bug fixes on /midnight-relay preview. Bug 1 (legend): pill legend is now positioned bottom-left of the map on both desktop (1440x900) and mobile (390x844), compact size ~106x23.5px, does not overlap city markers. Bug 2 (Sydney/Tokyo labels): SVG text nodes read full 'Sydney · 94 ms' and 'Tokyo · 38 ms' at both viewports; right-edge markers (Tokyo x~1066, Sydney x~1104) use text-anchor='end', left/center markers (FRA, LHR, IAD) use text-anchor='start'. All 5 peer markers, Singapore home hub with pulse, animated arcs, and 4 hero copy buttons all still render. No page/console errors.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "100%"},
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Both visual bugs on /midnight-relay RelayMap fixed and verified. Legend uses classes 'absolute bottom-3 left-3 md:bottom-4 md:left-4' inside data-testid='relay-map'. Right-edge label flip logic (p.x > 900 → text-anchor='end', dx=-10) works correctly for Tokyo and Sydney."
+}

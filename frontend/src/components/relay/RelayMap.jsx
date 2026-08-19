@@ -164,9 +164,14 @@ export const RelayMap = () => {
                 );
               })}
 
-              {/* Peer city markers */}
+              {/* Peer city markers.
+                  Right-edge hubs (Tokyo, Sydney) have labels flipped to the
+                  left so they stay inside the 1200-wide viewBox. */}
               {PEER_HUBS.map((h) => {
                 const p = project(h.lat, h.lng);
+                const flipLeft = p.x > 900;
+                const dx = flipLeft ? -10 : 10;
+                const anchor = flipLeft ? "end" : "start";
                 return (
                   <g key={`m-${h.code}`}>
                     <circle
@@ -178,8 +183,9 @@ export const RelayMap = () => {
                       strokeWidth="1.5"
                     />
                     <text
-                      x={p.x + 10}
+                      x={p.x + dx}
                       y={p.y - 8}
+                      textAnchor={anchor}
                       className="font-mono-tab"
                       fontSize="12"
                       fill="#424240"
@@ -188,8 +194,9 @@ export const RelayMap = () => {
                       {h.code}
                     </text>
                     <text
-                      x={p.x + 10}
+                      x={p.x + dx}
                       y={p.y + 8}
+                      textAnchor={anchor}
                       fontSize="11"
                       fill="#6e6e6c"
                       fontFamily="ui-monospace, monospace"
@@ -265,21 +272,21 @@ export const RelayMap = () => {
 };
 
 const MapLegend = () => (
-  <div className="absolute top-4 left-4 md:top-6 md:left-6 z-10 flex items-center gap-4 bg-white/90 backdrop-blur-sm border border-[color:var(--mc-line)] px-4 py-2 rounded-full">
-    <span className="flex items-center gap-2">
-      <span className="relative inline-flex h-2 w-2">
+  <div className="absolute bottom-3 left-3 md:bottom-4 md:left-4 z-10 flex items-center gap-2.5 bg-white/90 backdrop-blur-sm border border-[color:var(--mc-line)] px-2.5 py-1 rounded-full">
+    <span className="flex items-center gap-1.5">
+      <span className="relative inline-flex h-1.5 w-1.5">
         <span className="absolute inline-flex h-full w-full rounded-full opacity-70 animate-ping bg-[#7BAE96]" />
-        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#5B9679]" />
+        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#5B9679]" />
       </span>
-      <span className="font-mono-tab text-[10px] uppercase tracking-[0.18em] text-[color:var(--mc-secondary)]">
-        Home node
+      <span className="font-mono-tab text-[9px] uppercase tracking-[0.16em] text-[color:var(--mc-secondary)]">
+        Home
       </span>
     </span>
-    <span className="w-px h-3 bg-[color:var(--mc-line)]" />
-    <span className="flex items-center gap-2">
-      <span className="h-2 w-2 rounded-full bg-white border border-[color:var(--mc-primary)]" />
-      <span className="font-mono-tab text-[10px] uppercase tracking-[0.18em] text-[color:var(--mc-secondary)]">
-        Peer hub
+    <span className="w-px h-2.5 bg-[color:var(--mc-line)]" />
+    <span className="flex items-center gap-1.5">
+      <span className="h-1.5 w-1.5 rounded-full bg-white border border-[color:var(--mc-primary)]" />
+      <span className="font-mono-tab text-[9px] uppercase tracking-[0.16em] text-[color:var(--mc-secondary)]">
+        Peer
       </span>
     </span>
   </div>
