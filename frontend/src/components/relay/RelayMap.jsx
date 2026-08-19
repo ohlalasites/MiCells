@@ -166,11 +166,14 @@ export const RelayMap = () => {
 
               {/* Peer city markers.
                   Right-edge hubs (Tokyo, Sydney) have labels flipped to the
-                  left so they stay inside the 1200-wide viewBox. */}
+                  left so they stay inside the 1200-wide viewBox.
+                  `labelDy` on close-together hubs (London / Frankfurt) shifts
+                  their labels vertically to avoid text collisions. */}
               {PEER_HUBS.map((h) => {
                 const p = project(h.lat, h.lng);
                 const flipLeft = p.x > 900;
                 const dx = flipLeft ? -10 : 10;
+                const dy = h.labelDy ?? 0;
                 const anchor = flipLeft ? "end" : "start";
                 return (
                   <g key={`m-${h.code}`}>
@@ -184,7 +187,7 @@ export const RelayMap = () => {
                     />
                     <text
                       x={p.x + dx}
-                      y={p.y - 8}
+                      y={p.y - 8 + dy}
                       textAnchor={anchor}
                       className="font-mono-tab"
                       fontSize="12"
@@ -195,7 +198,7 @@ export const RelayMap = () => {
                     </text>
                     <text
                       x={p.x + dx}
-                      y={p.y + 8}
+                      y={p.y + 8 + dy}
                       textAnchor={anchor}
                       fontSize="11"
                       fill="#6e6e6c"

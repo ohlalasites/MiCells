@@ -92,11 +92,13 @@ export const FAQ = [
 
 // Peer visualisation targets for the network map.
 // Lat/lng are approximate for equirectangular projection.
+// `labelDy` optionally shifts the text label vertically to avoid collisions
+// between geographically-close hubs (London / Frankfurt).
 export const PEER_HUBS = [
   { code: "TYO", city: "Tokyo", lat: 35.68, lng: 139.69, ping: "38 ms" },
   { code: "SYD", city: "Sydney", lat: -33.87, lng: 151.21, ping: "94 ms" },
-  { code: "FRA", city: "Frankfurt", lat: 50.11, lng: 8.68, ping: "156 ms" },
-  { code: "LHR", city: "London", lat: 51.51, lng: -0.13, ping: "168 ms" },
+  { code: "FRA", city: "Frankfurt", lat: 50.11, lng: 8.68, ping: "156 ms", labelDy: 24 },
+  { code: "LHR", city: "London", lat: 51.51, lng: -0.13, ping: "168 ms", labelDy: -22 },
   { code: "IAD", city: "N. Virginia", lat: 39.02, lng: -77.54, ping: "212 ms" },
 ];
 

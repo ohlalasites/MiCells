@@ -1,0 +1,31 @@
+{
+  "summary": "Frontend-only verification of the LHR/FRA label vertical offset fix on /midnight-relay. Read SVG text node coordinates on desktop (1440x900) and mobile (390x844), zoomed screenshot of the London/Frankfurt quadrant, and regression-checked previously fixed Tokyo/Sydney/IAD label anchoring plus legend placement.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "verification_details": {
+    "LHR": {"code_y": 98.30, "city_y": 114.30, "x": 609.57, "anchor": "start", "expected_range_y": "98-114", "status": "PASS - label sits ABOVE marker (marker at ~y=106)"},
+    "FRA": {"code_y": 148.97, "city_y": 164.97, "x": 638.93, "anchor": "start", "expected_range_y": "147-163", "status": "PASS - label sits BELOW marker (marker at ~y=141), no overlap with LHR"},
+    "TYO": {"x": 1055.63, "anchor": "end", "status": "PASS - flipped left, inside viewBox"},
+    "SYD": {"x": 1094.03, "anchor": "end", "status": "PASS - flipped left, inside viewBox"},
+    "IAD": {"x": 351.53, "anchor": "start", "status": "PASS - left side unchanged"},
+    "vertical_gap_LHR_city_to_FRA_code": "34.67px (was ~0px causing collision) - collision resolved",
+    "legend": "PASS - bottom-left compact",
+    "mobile_svg_coords": "Identical (SVG uses viewBox so coords are viewport-independent) - PASS",
+    "console_errors": "None new. Only pre-existing 'fetchpriority' React DOM warning and preload 'as' warning (unrelated to this fix)."
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Fix is minimal and correct: optional labelDy field defaulting via ?? 0 does not affect other hubs. Consider generalising to auto-collision-avoidance if more close hubs are added later, but not needed now."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "100%"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "PEER_HUBS in /app/frontend/src/lib/relay.js supports optional labelDy for vertical label offset. RelayMap.jsx applies dy to both code and city text y. Currently LHR=-22, FRA=+24. Confirmed no overlap between London and Frankfurt labels on desktop and mobile."
+}
