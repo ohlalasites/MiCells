@@ -2,22 +2,25 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Copy, Check, ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
+import { useLanguage } from "@/lib/LanguageContext";
 import { BRAND } from "@/lib/brand";
 import { NODE } from "@/lib/relay";
 
 const MIDNIGHT_DOCS_URL = "https://docs.midnight.network/";
 
 export const RelayCta = () => {
+  const { t } = useLanguage();
+  const r = t.relay;
   const [copied, setCopied] = useState(false);
 
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(NODE.multiaddrIpv4);
       setCopied(true);
-      toast.success("Multiaddr copied to clipboard");
+      toast.success(r.copied_toast);
       setTimeout(() => setCopied(false), 1600);
     } catch (_) {
-      toast.error("Copy failed — please copy manually.");
+      toast.error(r.copy_fail_toast);
     }
   };
 
@@ -31,21 +34,19 @@ export const RelayCta = () => {
         <div className="grid grid-cols-12 gap-x-8 items-end">
           <div className="col-span-12 md:col-span-8">
             <div className="font-mono-tab text-[11px] uppercase tracking-[0.22em] text-[color:var(--mc-primary-soft)]">
-              06 · Peer With Us
+              {r.sec6_tag}
             </div>
             <Reveal>
               <h2 className="mt-8 font-display text-[36px] md:text-[64px] leading-[1.02] tracking-tight text-white font-light">
-                Building on Midnight?{" "}
+                {r.sec6_title_a}{" "}
                 <span className="italic text-[color:var(--mc-primary-soft)]">
-                  Peer with MiCells®.
+                  {r.sec6_title_b}
                 </span>
               </h2>
             </Reveal>
             <Reveal delay={100}>
               <p className="mt-8 max-w-[620px] text-[15.5px] leading-relaxed text-white/65">
-                Add the multiaddr as a bootnode, or reach out to our
-                infrastructure team for a private peering conversation. We
-                respond within one business day.
+                {r.sec6_desc}
               </p>
             </Reveal>
           </div>
@@ -61,7 +62,7 @@ export const RelayCta = () => {
             className="mc-btn mc-btn-onvideo"
           >
             {copied ? <Check size={16} /> : <Copy size={16} />}
-            {copied ? "Copied" : "Copy Multiaddr"}
+            {copied ? r.copied : r.copy_multiaddr_short}
           </button>
 
           <a
@@ -71,7 +72,7 @@ export const RelayCta = () => {
             data-testid="cta-docs"
             className="mc-btn mc-btn-onvideo-outline"
           >
-            Midnight Documentation
+            {r.cta_docs}
             <ArrowUpRight size={16} />
           </a>
 
@@ -80,7 +81,7 @@ export const RelayCta = () => {
             data-testid="cta-contact"
             className="mc-btn mc-btn-onvideo-outline"
           >
-            Contact Infrastructure Team
+            {r.cta_contact}
           </a>
         </div>
       </div>

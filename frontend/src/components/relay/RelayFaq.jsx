@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
-import { FAQ } from "@/lib/relay";
+import { useLanguage } from "@/lib/LanguageContext";
+import { FAQ_KEYS } from "@/lib/relay";
 
 export const RelayFaq = () => {
+  const { t } = useLanguage();
+  const r = t.relay;
   const [open, setOpen] = useState(0);
   const toggle = (i) => setOpen((cur) => (cur === i ? -1 : i));
 
@@ -16,14 +19,14 @@ export const RelayFaq = () => {
       <div className="mc-container">
         <div className="grid grid-cols-12 gap-x-8 mb-14 md:mb-20">
           <div className="col-span-12 md:col-span-4">
-            <div className="eyebrow">05 · Knowledge Base</div>
+            <div className="eyebrow">{r.sec5_tag}</div>
           </div>
           <div className="col-span-12 md:col-span-8">
             <Reveal>
               <h2 className="font-display text-[32px] md:text-[52px] leading-[1.05] tracking-tight text-[color:var(--mc-secondary)]">
-                Frequently asked{" "}
+                {r.sec5_title_a}{" "}
                 <span className="italic text-[color:var(--mc-primary)]">
-                  questions.
+                  {r.sec5_title_b}
                 </span>
               </h2>
             </Reveal>
@@ -31,11 +34,13 @@ export const RelayFaq = () => {
         </div>
 
         <div className="border-t border-[color:var(--mc-line)]">
-          {FAQ.map((item, idx) => {
+          {FAQ_KEYS.map((n, idx) => {
             const isOpen = open === idx;
+            const q = r[`faq${n}_q`];
+            const a = r[`faq${n}_a`];
             return (
               <div
-                key={item.q}
+                key={n}
                 data-testid={`faq-item-${idx}`}
                 className="border-b border-[color:var(--mc-line)]"
               >
@@ -50,7 +55,7 @@ export const RelayFaq = () => {
                     {String(idx + 1).padStart(2, "0")}
                   </span>
                   <span className="col-span-10 font-display text-[19px] md:text-[22px] leading-[1.3] tracking-tight text-[color:var(--mc-secondary)] group-hover:text-[color:var(--mc-primary)] transition-colors">
-                    {item.q}
+                    {q}
                   </span>
                   <span className="col-span-1 flex justify-end mt-1 text-[color:var(--mc-secondary)]">
                     {isOpen ? <Minus size={18} strokeWidth={1.6} /> : <Plus size={18} strokeWidth={1.6} />}
@@ -69,7 +74,7 @@ export const RelayFaq = () => {
                         data-testid={`faq-answer-${idx}`}
                         className="col-span-10 max-w-[760px] text-[15px] leading-[1.75] text-[color:var(--mc-muted)]"
                       >
-                        {item.a}
+                        {a}
                       </p>
                     </div>
                   </div>

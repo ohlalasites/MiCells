@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Copy, Check, AlertTriangle } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
+import { useLanguage } from "@/lib/LanguageContext";
 import { NODE } from "@/lib/relay";
 
 const TABS = [
@@ -11,6 +12,8 @@ const TABS = [
 ];
 
 export const RelayConnect = () => {
+  const { t } = useLanguage();
+  const r = t.relay;
   const [tab, setTab] = useState("bash");
   const [copied, setCopied] = useState(false);
 
@@ -22,13 +25,12 @@ midnight-node \\
   --bootnodes ${NODE.multiaddrIpv4}`,
       config: `{
   "bootnodes": [
-    "${NODE.multiaddrIpv4}",
-    "${NODE.multiaddrIpv6}"
+    "${NODE.multiaddrIpv4}"
   ]
 }`,
       docker: `services:
   midnight-node:
-    image: midnightnetwork/midnight-node:0.22.5
+    image: midnightnetwork/midnight-node:1.0.1
     restart: unless-stopped
     command:
       - --chain=mainnet
@@ -45,10 +47,10 @@ midnight-node \\
     try {
       await navigator.clipboard.writeText(active);
       setCopied(true);
-      toast.success("Snippet copied to clipboard");
+      toast.success(r.copied_toast);
       setTimeout(() => setCopied(false), 1600);
     } catch (_) {
-      toast.error("Copy failed — please copy manually.");
+      toast.error(r.copy_fail_toast);
     }
   };
 
@@ -61,22 +63,20 @@ midnight-node \\
       <div className="mc-container">
         <div className="grid grid-cols-12 gap-x-8 mb-14 md:mb-20">
           <div className="col-span-12 md:col-span-4">
-            <div className="eyebrow">03 · Connection Guide</div>
+            <div className="eyebrow">{r.sec3_tag}</div>
           </div>
           <div className="col-span-12 md:col-span-8">
             <Reveal>
               <h2 className="font-display text-[32px] md:text-[52px] leading-[1.05] tracking-tight text-[color:var(--mc-secondary)]">
-                Add the relay as{" "}
+                {r.sec3_title_a}{" "}
                 <span className="italic text-[color:var(--mc-primary)]">
-                  a bootnode.
+                  {r.sec3_title_b}
                 </span>
               </h2>
             </Reveal>
             <Reveal delay={100}>
               <p className="mt-8 max-w-[640px] text-[15.5px] leading-relaxed text-[color:var(--mc-muted)]">
-                Choose the integration path that matches your setup. All
-                snippets use the same IPv4 multiaddr and can be extended with
-                the IPv6 fallback where available.
+                {r.sec3_desc}
               </p>
             </Reveal>
           </div>
@@ -125,7 +125,7 @@ midnight-node \\
               className="px-6 py-3 md:py-0 md:border-l border-[color:var(--mc-line)] text-[11.5px] font-mono-tab uppercase tracking-[0.18em] text-[color:var(--mc-secondary)] hover:text-[color:var(--mc-primary)] flex items-center gap-2 justify-start md:justify-center"
             >
               {copied ? <Check size={13} /> : <Copy size={13} />}
-              {copied ? "Copied" : "Copy"}
+              {copied ? r.copied : r.copy_short}
             </button>
           </div>
 
@@ -151,19 +151,10 @@ midnight-node \\
           />
           <div>
             <div className="font-mono-tab text-[11px] uppercase tracking-[0.22em] text-[color:var(--mc-primary)]">
-              Port & Firewall Reminder
+              {r.firewall_title}
             </div>
-            <p className="mt-3 text-[14px] leading-relaxed text-[color:var(--mc-secondary)] max-w-[680px]">
-              Ensure outgoing TCP on port{" "}
-              <span className="font-mono-tab text-[color:var(--mc-secondary)]">
-                30333
-              </span>{" "}
-              is unblocked so your node can establish the WebSocket connection
-              with{" "}
-              <span className="font-mono-tab">MiCells-Midnight-Relay</span>. The
-              RPC port <span className="font-mono-tab">9944</span> is
-              intentionally bound to localhost on our side and is not exposed
-              publicly.
+            <p className="mt-3 text-[14px] leading-relaxed text-[color:var(--mc-secondary)] max-w-[720px]">
+              {r.firewall_desc}
             </p>
           </div>
         </div>

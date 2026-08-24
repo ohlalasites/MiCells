@@ -1,0 +1,68 @@
+{
+  "summary": "Full E2E of /midnight-relay after node-identity + i18n + dynamic-map + v1.0.1 + IPv6-drop refactor. Backend regression via pytest (16/16 pass) covering /api/health, /api/enquiries CRUD/validation, /api/interest CRUD/validation with EN+ZH persistence. Frontend verified: new peer ID everywhere (4 occurrences), old peer ID absent from DOM, hero status pill 'NODE ONLINE · SYNCING' with data-syncing=true, stat-peers=9, stat-sync=97.29% with ratio 2,216,902/2,278,664 + visible progress bar, stat-uptime=Monitored, software card has midnight-node v1.0.1 (no 0.22.5), Docker snippet 'midnightnetwork/midnight-node:1.0.1' + new peer, Config JSON has ONLY /ip4/ multiaddr (no /ip6/), Bash snippet has new peer, map source badge = 'OPERATOR SNAPSHOT · UPDATED 2026-08-24 23:48 SGT' with data-source='snapshot' and positioned top-right of map. Map renders all 5 hubs (TYO/SYD end-anchor, LHR y=98 above marker, FRA y=149 below, IAD start-anchor) plus SIN home label 'SIN · MiCells Relay' / 'Singapore · Home node'. ZH toggle translates the ENTIRE relay page: pill='節點在線 · 同步中', stats='活躍對等節點/同步進度/節點狀態', CTAs='複製 Multiaddr','Midnight 官方文檔','聯絡基礎設施團隊', firewall notice fully in Traditional Chinese, badge='運維快照 · 更新於 2026-08-24 23:48 SGT', FAQ Q&A all Traditional Chinese, SVG home hub 'SIN · MiCells 中繼 / Singapore · 本節點'. Zero English leaks in ZH mode for probes tested (Strategic Vision, Connection Guide, Network Reach, etc). Toggle back to EN restores 'NODE ONLINE · SYNCING'. rpc.micells.io DNS-fails as expected (ERR_NAME_NOT_RESOLVED in console) and page falls through cleanly to snapshot values with no thrown exceptions.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "Nav (site-wide) - language toggle buttons",
+        "issue": "Duplicate data-testid: two elements share data-testid='lang-toggle-zh' and two share data-testid='lang-toggle-en' (desktop + mobile nav both use same testid). Playwright strict-mode selectors fail; both buttons appear to be rendered simultaneously (not conditionally hidden by breakpoint at test viewport). Only .first works reliably.",
+        "selector": "[data-testid='lang-toggle-zh']",
+        "priority": "MEDIUM"
+      },
+      {
+        "component": "RelayHero stats row (mobile 390x844)",
+        "issue": "Hero stat cards DO NOT stack on mobile — all three (stat-peers, stat-sync, stat-uptime) render in one row at ~117px each (top identical at y=602). This truncates the sync ratio '2,216,902 / 2,278,664' to '2,216,902 / 2,…'. Spec explicitly required 'hero stat cards stack readably' on 390x844.",
+        "selector": "[data-testid='stat-sync']",
+        "priority": "MEDIUM"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "/midnight-relay mobile", "issues": ["Sync ratio truncation because stat cards do not stack — recommend grid-cols-1 md:grid-cols-3 on the stats row"]}
+    ]
+  },
+  "verification_details": {
+    "old_peer_id_absent_in_dom": true,
+    "new_peer_id_dom_count": 4,
+    "peer_id_testid": "12D3KooWCp9ybXjcq4gTRRhvfNwJTqjd6WQaJF2hfvHSsvvFaWQp",
+    "multiaddr_testid": "/ip4/194.233.76.164/tcp/30333/ws/p2p/12D3KooWCp9ybXjcq4gTRRhvfNwJTqjd6WQaJF2hfvHSsvvFaWQp",
+    "pill_en": "NODE ONLINE · SYNCING",
+    "pill_zh": "節點在線 · 同步中",
+    "pill_data_syncing": "true",
+    "stats_en": {"peers": "9 / ACTIVE PEERS / connected", "sync": "97.29% / 2,216,902 / 2,278,664", "uptime": "Monitored / NODE STATUS"},
+    "stats_zh": {"peers": "活躍對等節點 / 9 / 已連接", "sync": "同步進度 / 97.29% / 2,216,902 / 2,278,664", "uptime": "節點狀態 / 已監控"},
+    "software_v1_0_1_present": true,
+    "software_v0_22_5_absent": true,
+    "docker_snippet_uses_1_0_1": true,
+    "config_json_has_only_ipv4": true,
+    "map_badge_en": "OPERATOR SNAPSHOT · UPDATED 2026-08-24 23:48 SGT",
+    "map_badge_zh": "運維快照 · 更新於 2026-08-24 23:48 SGT",
+    "map_badge_data_source": "snapshot",
+    "svg_hubs_present": ["TYO(end)","SYD(end)","FRA(start,y=149)","LHR(start,y=98)","IAD(start)","SIN home"],
+    "cta_zh": ["複製 Multiaddr", "Midnight 官方文檔", "聯絡基礎設施團隊"],
+    "faq_zh_q1": "什麼是 Midnight 中繼節點?",
+    "english_leaks_in_zh": [],
+    "rpc_micells_dns_failure_handled": "Console shows ERR_NAME_NOT_RESOLVED but no thrown error; snapshot fallback renders full page.",
+    "language_round_trip_en_zh_en": "PASS"
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/backend/tests/test_interest.py",
+    "/app/test_reports/pytest/pytest_iter6.xml"
+  ],
+  "action_items": [
+    "Fix duplicate data-testid on language toggle: desktop and mobile nav must use distinct testids (e.g., lang-toggle-zh-desktop / lang-toggle-zh-mobile) OR gate rendering by breakpoint so only one is in the DOM at a time. Right now Playwright strict-mode fails.",
+    "Fix mobile stacking of hero stats in /midnight-relay: switch stats grid to grid-cols-1 sm:grid-cols-3 (or similar) so the sync ratio '2,216,902 / 2,278,664' is fully readable on 390px viewport."
+  ],
+  "critical_code_review_comments": [
+    "Nav duplicate data-testid is a testability smell — shared testids across responsive variants leak into automated tests and screen-reader roles. Prefer conditional rendering or suffixing testids by variant.",
+    "RelayHero stats row does not adapt to <sm breakpoint; the 3-col grid is too tight for a 9-digit ratio in a 390px viewport. Simple grid-cols change fixes it.",
+    "useRelayLive.js fallback path validated in production (rpc.micells.io currently unresolved) — snapshot fallback works cleanly. Recommend keeping the current 3.5s AbortController timeout, and ensure the failed fetch does not spam retries in a tight loop (not observed in this run)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "~92% (2 non-critical UI issues)"},
+  "seed_data_creation": "Backend test suite created TEST_ prefixed enquiry + interest rows via /api/enquiries and /api/interest (idempotent, safe to leave).",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Relay page copy/i18n/dynamic-map coverage is comprehensive; remaining action items are (a) unique language-toggle testids for desktop vs mobile nav and (b) mobile grid stacking of hero stat cards. Backend pytest suite at /app/backend/tests/{backend_test.py,test_interest.py} covers regression for /api/health, /api/enquiries, /api/interest incl. EN+ZH language field."
+}

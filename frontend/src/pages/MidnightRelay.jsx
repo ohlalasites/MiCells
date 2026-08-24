@@ -10,26 +10,15 @@ import { RelayFaq } from "@/components/relay/RelayFaq";
 import { RelayCta } from "@/components/relay/RelayCta";
 
 /*
- * EXTENSION POINT — live node metrics
+ * Live node metrics are wired through `useRelayLive` (see
+ * /app/frontend/src/lib/useRelayLive.js). On mount it hits
+ * https://rpc.micells.io with JSON-RPC `system_health` + `system_syncState`
+ * and swaps the snapshot for live values as soon as the endpoint is
+ * reachable (DNS record for rpc.micells.io + Nginx + Let's Encrypt on the
+ * VPS required — see finish notes).
  *
- *   useEffect(() => {
- *     const fetchNodeStats = async () => {
- *       const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/midnight/metrics`);
- *       const data = await res.json();
- *       setNodeStats({
- *         blockHeight: data.block,
- *         peers: data.peers,
- *         status: data.status,
- *         uptime: data.uptime,
- *       });
- *     };
- *     fetchNodeStats();
- *     const t = setInterval(fetchNodeStats, 30_000);
- *     return () => clearInterval(t);
- *   }, []);
- *
- * The stats values that need wiring live in `/app/frontend/src/lib/relay.js`
- * (LIVE_STATS) and are consumed by RelayHero.jsx.
+ * Snapshot fallback lives in OPERATOR_SNAPSHOT inside /app/frontend/src/lib/relay.js
+ * and is used automatically whenever RPC is offline / CORS-blocked / DNS pending.
  */
 
 export default function MidnightRelay() {

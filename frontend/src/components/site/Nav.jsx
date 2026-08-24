@@ -100,7 +100,7 @@ export const Nav = () => {
         </nav>
 
         <div className="hidden lg:flex items-center gap-4">
-          <LangToggle scrolled={scrolled} lang={lang} setLang={setLang} aria={t.nav.toggleAria} />
+          <LangToggle scrolled={scrolled} lang={lang} setLang={setLang} aria={t.nav.toggleAria} variant="desktop" />
           <a
             href={anchor("#contact")}
             data-testid="nav-cta-contact"
@@ -111,7 +111,7 @@ export const Nav = () => {
         </div>
 
         <div className="lg:hidden flex items-center gap-3">
-          <LangToggle scrolled={scrolled} lang={lang} setLang={setLang} aria={t.nav.toggleAria} />
+          <LangToggle scrolled={scrolled} lang={lang} setLang={setLang} aria={t.nav.toggleAria} variant="mobile" />
           <button
             data-testid="nav-mobile-toggle"
             aria-label="Toggle menu"
@@ -160,7 +160,7 @@ export const Nav = () => {
   );
 };
 
-const LangToggle = ({ scrolled, lang, setLang, aria }) => {
+const LangToggle = ({ scrolled, lang, setLang, aria, variant = "desktop" }) => {
   const onColor = scrolled ? "text-[color:var(--mc-secondary)] border-[color:var(--mc-line)]" : "text-white border-white/30";
   return (
     <div
@@ -178,7 +178,7 @@ const LangToggle = ({ scrolled, lang, setLang, aria }) => {
           <button
             key={l}
             type="button"
-            data-testid={`lang-toggle-${l}`}
+            data-testid={`lang-toggle-${l}${variant === "mobile" ? "-mobile" : ""}`}
             aria-pressed={active}
             onClick={() => setLang(l)}
             className={`px-3 py-[6px] text-[11px] font-medium tracking-[0.06em] transition-colors ${

@@ -1,5 +1,7 @@
 import { Reveal } from "@/components/site/Reveal";
-import { HOME_HUB, PEER_HUBS } from "@/lib/relay";
+import { useLanguage } from "@/lib/LanguageContext";
+import { HOME_HUB } from "@/lib/relay";
+import { useRelayLive } from "@/lib/useRelayLive";
 
 // Equirectangular projection sized to 1200 x 600.
 const W = 1200;
@@ -19,7 +21,6 @@ const arcPath = (from, to) => {
   const dx = to.x - from.x;
   const dy = to.y - from.y;
   const dist = Math.sqrt(dx * dx + dy * dy);
-  // Perpendicular offset (rotate 90°), scaled by distance
   const nx = -dy / dist;
   const ny = dx / dist;
   const offset = dist * 0.28;
@@ -29,6 +30,16 @@ const arcPath = (from, to) => {
 };
 
 export const RelayMap = () => {
+  const { t } = useLanguage();
+  const r = t.relay;
+  const live = useRelayLive();
+  const peers = live.peers;
+
+  const sourceLabel =
+    live.source === "live"
+      ? r.map_source_live
+      : r.map_source_snapshot.replace("{ts}", live.lastVerified);
+
   return (
     <section
       id="relay-map"
@@ -38,23 +49,20 @@ export const RelayMap = () => {
       <div className="mc-container">
         <div className="grid grid-cols-12 gap-x-8 mb-12 md:mb-16">
           <div className="col-span-12 md:col-span-4">
-            <div className="eyebrow">04 · Network Reach</div>
+            <div className="eyebrow">{r.sec4_tag}</div>
           </div>
           <div className="col-span-12 md:col-span-8">
             <Reveal>
               <h2 className="font-display text-[32px] md:text-[52px] leading-[1.05] tracking-tight text-[color:var(--mc-secondary)]">
-                Peering mesh from{" "}
+                {r.sec4_title_a}{" "}
                 <span className="italic text-[color:var(--mc-primary)]">
-                  Singapore.
+                  {r.sec4_title_b}
                 </span>
               </h2>
             </Reveal>
             <Reveal delay={100}>
               <p className="mt-8 max-w-[640px] text-[15.5px] leading-relaxed text-[color:var(--mc-muted)]">
-                Live P2P gossip is propagated to and from major node hubs
-                globally. The map illustrates representative peer paths — the
-                component is wired to consume live peer arrays once a metrics
-                endpoint is available.
+                {r.sec4_desc}
               </p>
             </Reveal>
           </div>
@@ -62,13 +70,17 @@ export const RelayMap = () => {
 
         {/* Map card */}
         <div className="relative border border-[color:var(--mc-line)] bg-white">
-          <MapLegend />
+          <MapLegend
+            homeLabel={r.map_legend_home}
+            peerLabel={r.map_legend_peer}
+          />
+          <MapSourceBadge label={sourceLabel} isLive={live.source === "live"} />
           <div className="relative w-full overflow-hidden">
             <svg
               viewBox={`0 0 ${W} ${H}`}
               className="block w-full h-auto"
               role="img"
-              aria-label="MiCells Midnight Relay peering map centred on Singapore"
+              aria-label={r.sec4_title_b}
               data-testid="relay-map-svg"
             >
               <defs>
@@ -77,14 +89,11 @@ export const RelayMap = () => {
                   <stop offset="70%" stopColor="#7BAE96" stopOpacity="0.05" />
                   <stop offset="100%" stopColor="#7BAE96" stopOpacity="0" />
                 </radialGradient>
-
                 <linearGradient id="relay-arc" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor="#5C7D82" stopOpacity="0.15" />
                   <stop offset="50%" stopColor="#5C7D82" stopOpacity="0.7" />
                   <stop offset="100%" stopColor="#5C7D82" stopOpacity="0.1" />
                 </linearGradient>
-
-                {/* Dot pattern grid representing the globe */}
                 <pattern
                   id="relay-dots"
                   x="0"
@@ -97,10 +106,8 @@ export const RelayMap = () => {
                 </pattern>
               </defs>
 
-              {/* Dot grid background */}
               <rect width={W} height={H} fill="url(#relay-dots)" />
 
-              {/* Equator + meridians (very faint) */}
               <line
                 x1="0"
                 y1={H / 2}
@@ -122,12 +129,12 @@ export const RelayMap = () => {
                 opacity="0.5"
               />
 
-              {/* Arcs */}
-              {PEER_HUBS.map((h, idx) => {
+              {/* Arcs + travelling packets */}
+              {peers.map((h, idx) => {
                 const to = project(h.lat, h.lng);
                 const d = arcPath(home, to);
                 return (
-                  <g key={h.code}>
+                  <g key={h.code || `${h.lat}-${h.lng}`}>
                     <path
                       d={d}
                       stroke="url(#relay-arc)"
@@ -137,12 +144,9 @@ export const RelayMap = () => {
                       style={{
                         strokeDasharray: 900,
                         strokeDashoffset: 900,
-                        animation: `relayDraw 2.6s ease-out ${
-                          0.25 + idx * 0.18
-                        }s forwards`,
+                        animation: `relayDraw 2.6s ease-out ${0.25 + idx * 0.18}s forwards`,
                       }}
                     />
-                    {/* Signal packet dot travelling along the arc */}
                     <circle r="3" fill="#5C7D82">
                       <animateMotion
                         dur={`${4.5 + idx * 0.6}s`}
@@ -164,27 +168,16 @@ export const RelayMap = () => {
                 );
               })}
 
-              {/* Peer city markers.
-                  Right-edge hubs (Tokyo, Sydney) have labels flipped to the
-                  left so they stay inside the 1200-wide viewBox.
-                  `labelDy` on close-together hubs (London / Frankfurt) shifts
-                  their labels vertically to avoid text collisions. */}
-              {PEER_HUBS.map((h) => {
+              {/* Peer city markers */}
+              {peers.map((h) => {
                 const p = project(h.lat, h.lng);
                 const flipLeft = p.x > 900;
                 const dx = flipLeft ? -10 : 10;
                 const dy = h.labelDy ?? 0;
                 const anchor = flipLeft ? "end" : "start";
                 return (
-                  <g key={`m-${h.code}`}>
-                    <circle
-                      cx={p.x}
-                      cy={p.y}
-                      r="5"
-                      fill="#ffffff"
-                      stroke="#5C7D82"
-                      strokeWidth="1.5"
-                    />
+                  <g key={`m-${h.code || `${h.lat}-${h.lng}`}`}>
+                    <circle cx={p.x} cy={p.y} r="5" fill="#ffffff" stroke="#5C7D82" strokeWidth="1.5" />
                     <text
                       x={p.x + dx}
                       y={p.y - 8 + dy}
@@ -212,25 +205,18 @@ export const RelayMap = () => {
 
               {/* Singapore home hub with pulse */}
               <g>
+                <circle cx={home.x} cy={home.y} r="80" fill="url(#relay-pulse)" />
                 <circle
                   cx={home.x}
                   cy={home.y}
-                  r="80"
-                  fill="url(#relay-pulse)"
-                />
-                <circle cx={home.x} cy={home.y} r="14" fill="none" stroke="#7BAE96" strokeWidth="1.5" opacity="0.4">
-                  <animate
-                    attributeName="r"
-                    values="10;28;10"
-                    dur="2.6s"
-                    repeatCount="indefinite"
-                  />
-                  <animate
-                    attributeName="opacity"
-                    values="0.55;0;0.55"
-                    dur="2.6s"
-                    repeatCount="indefinite"
-                  />
+                  r="14"
+                  fill="none"
+                  stroke="#7BAE96"
+                  strokeWidth="1.5"
+                  opacity="0.4"
+                >
+                  <animate attributeName="r" values="10;28;10" dur="2.6s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0.55;0;0.55" dur="2.6s" repeatCount="indefinite" />
                 </circle>
                 <circle cx={home.x} cy={home.y} r="7" fill="#5B9679" />
                 <circle cx={home.x} cy={home.y} r="2.5" fill="#ffffff" />
@@ -242,7 +228,7 @@ export const RelayMap = () => {
                   fontFamily="ui-monospace, monospace"
                   fontWeight="600"
                 >
-                  {HOME_HUB.code} · MiCells Relay
+                  {HOME_HUB.code} · {r.home_hub_label}
                 </text>
                 <text
                   x={home.x + 14}
@@ -251,30 +237,26 @@ export const RelayMap = () => {
                   fill="#5C7D82"
                   fontFamily="ui-monospace, monospace"
                 >
-                  {HOME_HUB.city} · home node
+                  {HOME_HUB.city} · {r.home_hub_sub}
                 </text>
               </g>
 
               <style>{`
-                @keyframes relayDraw {
-                  to { stroke-dashoffset: 0; }
-                }
+                @keyframes relayDraw { to { stroke-dashoffset: 0; } }
               `}</style>
             </svg>
           </div>
         </div>
 
         <p className="mt-8 max-w-[720px] text-[12.5px] leading-relaxed text-[color:var(--mc-muted)]">
-          Ping values are illustrative and represent typical round-trip
-          latencies from Singapore. Live values will populate this component
-          when the metrics endpoint is wired in.
+          {r.map_disclaimer}
         </p>
       </div>
     </section>
   );
 };
 
-const MapLegend = () => (
+const MapLegend = ({ homeLabel, peerLabel }) => (
   <div className="absolute bottom-3 left-3 md:bottom-4 md:left-4 z-10 flex items-center gap-2.5 bg-white/90 backdrop-blur-sm border border-[color:var(--mc-line)] px-2.5 py-1 rounded-full">
     <span className="flex items-center gap-1.5">
       <span className="relative inline-flex h-1.5 w-1.5">
@@ -282,15 +264,30 @@ const MapLegend = () => (
         <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#5B9679]" />
       </span>
       <span className="font-mono-tab text-[9px] uppercase tracking-[0.16em] text-[color:var(--mc-secondary)]">
-        Home
+        {homeLabel}
       </span>
     </span>
     <span className="w-px h-2.5 bg-[color:var(--mc-line)]" />
     <span className="flex items-center gap-1.5">
       <span className="h-1.5 w-1.5 rounded-full bg-white border border-[color:var(--mc-primary)]" />
       <span className="font-mono-tab text-[9px] uppercase tracking-[0.16em] text-[color:var(--mc-secondary)]">
-        Peer
+        {peerLabel}
       </span>
+    </span>
+  </div>
+);
+
+const MapSourceBadge = ({ label, isLive }) => (
+  <div
+    data-testid="relay-map-source"
+    data-source={isLive ? "live" : "snapshot"}
+    className="absolute top-3 right-3 md:top-4 md:right-4 z-10 inline-flex items-center gap-1.5 bg-white/90 backdrop-blur-sm border border-[color:var(--mc-line)] px-2.5 py-1 rounded-full max-w-[70%] md:max-w-none"
+  >
+    <span
+      className={`h-1.5 w-1.5 rounded-full ${isLive ? "bg-[#5B9679]" : "bg-[#D6B34F]"}`}
+    />
+    <span className="font-mono-tab text-[9px] uppercase tracking-[0.16em] text-[color:var(--mc-secondary)] truncate">
+      {label}
     </span>
   </div>
 );

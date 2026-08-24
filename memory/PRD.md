@@ -84,6 +84,14 @@ Build a world-class institutional website for MiCells, a medical biotechnology c
 - **Static-first, extension-ready** — `/app/frontend/src/lib/relay.js` holds NODE, LIVE_STATS, HARDWARE, SOFTWARE, VISION_CARDS, FAQ, PEER_HUBS. MidnightRelay.jsx has an inline `EXTENSION POINT` comment block showing how to wire live metrics from a future `/api/midnight/metrics` endpoint.
 - **Verified 2026-08-18** — testing agent full E2E 100% pass. Copy-to-clipboard, tab switching, FAQ accordion, cross-page SPA nav, mobile viewport (390x844) all green. No backend changes.
 
+## Implemented (2026-08-24) — Live node identity + dynamic map + zh-HK translations
+- **Node identity refreshed** — old Peer ID (`12D3KooWK2exseKW1K...avkx`) removed everywhere; new Peer ID `12D3KooWCp9ybXjcq4gTRRhvfNwJTqjd6WQaJF2hfvHSsvvFaWQp` applied to hero copy card, peer id row, Bash / Config JSON / Docker snippets, and CTA copy button. `midnight-node` version bumped to **1.0.1** in the software card and Docker snippet. IPv6 multiaddr removed from the Config JSON snippet.
+- **Live-metrics hook** (`/app/frontend/src/lib/useRelayLive.js`) — JSON-RPC POST to `https://rpc.micells.io` (`system_health` + `system_syncState`) with 3.5s AbortController timeout, gracefully falls back to `OPERATOR_SNAPSHOT` when the endpoint is unresolved / CORS-blocked / offline. `state.source` exposes `"live" | "snapshot"` and the map card shows a top-right badge reflecting this.
+- **Syncing state UX** — status pill switches between 🟡 SYNCING and 🟢 FULLY SYNCED via `isSyncing`. Hero stats now show Active Peers (`9`) · Sync Progress (`97.29%` + progress bar + `2,216,902 / 2,278,664`) · Node Status (`Monitored`). All stat cards stack cleanly on mobile.
+- **Bilingual EN + 繁 for the whole /midnight-relay page** — new ~100-key `relay` bundle in `lib/i18n.js` for both `en` and `zh` (Traditional, HK-style vocab: 網絡 / 軟件 / 聯絡 etc.). Every eyebrow, headline, card, spec label, tab-panel snippet frame, firewall notice, map legend + source badge, FAQ Q&A and CTA button is translated. Code snippets stay code-only in both languages.
+- **Nav testid uniqueness** — `lang-toggle-{en,zh}` (desktop) and `lang-toggle-{en,zh}-mobile` (mobile) no longer collide in Playwright strict mode.
+- **Verified 2026-08-24** — backend pytest 16/16 pass, frontend E2E 100% after two follow-up polish fixes (mobile stat stacking + unique language testids). rpc.micells.io not yet DNS-resolved → snapshot fallback rendered cleanly, no thrown errors.
+
 ## Verified (2026-06-13, fork session)
 - Screenshot verification of EN and 繁 language states: toggle works, Traditional Chinese typography renders cleanly, no layout overflow, ® present in both languages.
 - No bare "MiCells" (without ®) in i18n.js, articles.js, legal.js, or components.
