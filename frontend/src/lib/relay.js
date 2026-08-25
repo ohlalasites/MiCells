@@ -19,15 +19,15 @@ export const NODE = {
   publicRpc: "https://rpc.micells.io",
 };
 
-// Operator snapshot captured 2026-08-24 23:48 SGT.
-// Falls back to these values when https://rpc.micells.io is not reachable.
+// Operator snapshot captured 2026-08-25 22:54 SGT (post-sync).
+// Falls back to these values only when https://rpc.micells.io is not reachable.
 export const OPERATOR_SNAPSHOT = {
-  peers: 9,
-  isSyncing: true,
-  startingBlock: 2205227,
-  currentBlock: 2216902,
-  highestBlock: 2278664,
-  lastVerified: "2026-08-24 23:48 SGT",
+  peers: 12,
+  isSyncing: false,
+  startingBlock: 2288282,
+  currentBlock: 2296612,
+  highestBlock: 2296612,
+  lastVerified: "2026-08-25 22:54 SGT",
   peerId: NODE.peerId,
   multiaddr: NODE.multiaddrIpv4,
 };
@@ -61,10 +61,12 @@ export const FAQ_KEYS = [1, 2, 3, 4, 5, 6];
 // peer geolocation is not available yet.
 // `labelDy` shifts labels vertically to avoid text collisions between
 // geographically-close hubs (London / Frankfurt).
+// `align` optionally forces text-anchor to "start" (right of marker) or "end"
+// (left of marker), overriding the default right-edge auto-flip based on x.
 export const PEER_HUBS = [
   { code: "TYO", city: "Tokyo", lat: 35.6762, lng: 139.6503, ping: "38 ms" },
   { code: "SYD", city: "Sydney", lat: -33.8688, lng: 151.2093, ping: "94 ms" },
-  { code: "FRA", city: "Frankfurt", lat: 50.1109, lng: 8.6821, ping: "156 ms", labelDy: 24 },
+  { code: "FRA", city: "Frankfurt", lat: 50.1109, lng: 8.6821, ping: "156 ms", labelDy: 24, align: "end" },
   { code: "LHR", city: "London", lat: 51.5074, lng: -0.1278, ping: "168 ms", labelDy: -22 },
   { code: "IAD", city: "N. Virginia", lat: 38.9072, lng: -77.0369, ping: "212 ms" },
 ];

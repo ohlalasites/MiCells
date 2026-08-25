@@ -168,20 +168,23 @@ export const RelayMap = () => {
                 );
               })}
 
-              {/* Peer city markers */}
+              {/* Peer city markers.
+                  Right-edge hubs (Tokyo, Sydney) auto-flip labels to the left
+                  so they stay inside the 1200-wide viewBox. `labelDy` handles
+                  vertical stagger for close-together hubs, `align` overrides
+                  the auto-flip when the arc would clip the label. */}
               {peers.map((h) => {
                 const p = project(h.lat, h.lng);
-                const flipLeft = p.x > 900;
-                const dx = flipLeft ? -10 : 10;
+                const align = h.align ?? (p.x > 900 ? "end" : "start");
+                const dx = align === "end" ? -10 : 10;
                 const dy = h.labelDy ?? 0;
-                const anchor = flipLeft ? "end" : "start";
                 return (
                   <g key={`m-${h.code || `${h.lat}-${h.lng}`}`}>
                     <circle cx={p.x} cy={p.y} r="5" fill="#ffffff" stroke="#5C7D82" strokeWidth="1.5" />
                     <text
                       x={p.x + dx}
                       y={p.y - 8 + dy}
-                      textAnchor={anchor}
+                      textAnchor={align}
                       className="font-mono-tab"
                       fontSize="12"
                       fill="#424240"
@@ -192,7 +195,7 @@ export const RelayMap = () => {
                     <text
                       x={p.x + dx}
                       y={p.y + 8 + dy}
-                      textAnchor={anchor}
+                      textAnchor={align}
                       fontSize="11"
                       fill="#6e6e6c"
                       fontFamily="ui-monospace, monospace"

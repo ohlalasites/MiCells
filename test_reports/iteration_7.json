@@ -1,0 +1,26 @@
+{
+  "summary": "Re-verified /midnight-relay Frankfurt-arc overlap fix on preview. All SVG label positions match spec (FRA anchor='end' x=618.94, y=148.96/164.96; LHR anchor='start' x=609.57, y=98.31/114.31; TYO & SYD auto-flipped to anchor='end'; IAD anchor='start'). Live RPC integration is up: source badge shows 'LIVE · FETCHED VIA RPC.MICELLS.IO' with data-source='live', ACTIVE PEERS=12, SYNC PROGRESS=100.00% with block ratio 2,296,649 / 2,296,650, hero status pill reads 'NODE ONLINE · FULLY SYNCED'. Traditional Chinese toggle correctly translates the source badge to '實時 · 由 RPC.MICELLS.IO 取得' and status pill to '節點在線 · 完全同步'. Europe-region zoom screenshot confirms the SIN→FRA arc no longer cuts through the Frankfurt city label — arc passes above the FRA/Frankfurt text block, and LHR label remains cleanly above its marker with no overlap against FRA.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    ".screenshots/europe_zoom.jpg",
+    ".screenshots/europe_zoom_wide.jpg",
+    ".screenshots/full_map.jpg"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Small note: OPERATOR_SNAPSHOT is now only exercised when live RPC fails; live RPC returned currentBlock=2,296,649 vs snapshot 2,296,612 during testing which is expected drift. No action needed.",
+    "The `align` field on PEER_HUBS is documented inline in relay.js — good. Consider adding a JSDoc @type comment if this file grows."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "n/a", "frontend": "100%" },
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Frankfurt/London label positioning verified via SVG DOM inspection AND visual zoom screenshot on preview URL. Live RPC (rpc.micells.io) is fully operational and returning peers=12/isSyncing=false. Chinese translation for both map source badge and hero status pill works. No regressions detected in LHR, TYO, SYD, IAD label placement. User's remaining task is production redeploy — no code changes needed.",
+  "rca of the issue": "Original: RelayMap flipped label anchor to 'end' only when p.x > 900. FRA projects to x≈619 so its label stayed at anchor='start' (rightward) and got intersected by the SIN→FRA arc which sweeps through x≈629-946 near y=149. Fix (already applied by main agent): added optional `align` on PEER_HUBS with FRA set to align='end' plus labelDy=24, placing the label to the LEFT and BELOW the marker, outside the arc's path. Verified visually — no overlap remains."
+}
