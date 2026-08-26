@@ -36,7 +36,7 @@ export const Nav = () => {
     { key: "partners", href: anchor("#investors") },
   ];
 
-  const relayLabel = "Infrastructure";
+  const relayLabel = t.nav.infrastructure;
 
   return (
     <header

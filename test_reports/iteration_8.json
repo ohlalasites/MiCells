@@ -1,0 +1,21 @@
+{
+  "summary": "Verified i18n fix for the 'Infrastructure' nav label. Nav.jsx now pulls relayLabel from t.nav.infrastructure (en: 'Infrastructure', zh: '基礎設施'). Tested desktop + mobile variants on both / and /midnight-relay; toggling lang-toggle-zh / lang-toggle-en (and their -mobile counterparts) updates nav-link-relay and nav-mobile-link-relay live without reload. Regression checks on framework/process/advisory/insights/register/partners nav labels in ZH all pass. No visible English leaks on /midnight-relay in ZH mode. Live RPC data still fetched (active peers=13 shown in stat-peers). Note: testids sync-percent / status-pill / map-source-badge / rpc-status-pill were not found by those literal names on the page — likely named differently in the DOM — but the ZH page renders cleanly with no English leaks, so functionally acceptable.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Minor: React console warning 'Invalid DOM property fetchpriority - Did you mean fetchPriority' appears on every page (image tag using lowercase fetchpriority attr). Non-blocking but should be fixed by using JSX camelCase fetchPriority."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "100%"},
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "i18n nav.infrastructure key confirmed working. Testids used: nav-link-relay, nav-mobile-link-relay, lang-toggle-en/zh, lang-toggle-en-mobile/zh-mobile, nav-mobile-toggle. Live RPC status pill / sync-percent testids were not found under those exact names — main agent may want to confirm actual testids if regression on those is required in future.",
+  "rca of the issue": "Root cause was a hardcoded English literal in Nav.jsx (`const relayLabel = 'Infrastructure'`). Fix replaced it with `t.nav.infrastructure` and added the key to both en and zh dicts in i18n.js. Verified fix works via language toggle without page reload."
+}
