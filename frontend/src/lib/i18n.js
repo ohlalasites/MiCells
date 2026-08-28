@@ -250,6 +250,23 @@ const en = {
       "Your expression of interest has been received. It will be treated in confidence and used only for demand-forecasting and service-design purposes. A member of the MiCells® team will be in touch from",
     successBodyTail: " should further information become relevant.",
     reset: "Submit another expression of interest",
+    share: {
+      eyebrow: "Refer a peer",
+      body:
+        "Know someone who would value private medical stewardship? A quiet forward means more than any public post.",
+      copyLink: "Copy Link",
+      copyLinkOk: "Link copied to clipboard",
+      email: "Email",
+      whatsapp: "WhatsApp",
+      linkedin: "LinkedIn",
+      emailSubject: "MiCells® — private medical stewardship",
+      emailBody:
+        "Thought this might be of interest — a clinical, institutional approach to personal medical preparedness.\n\nhttps://micells.io",
+      shareText:
+        "Thought this might be of interest — a clinical, institutional approach to personal medical preparedness. https://micells.io",
+      followLinkedin: "Follow MiCells® on LinkedIn",
+      close: "Close",
+    },
     toastSuccess: "Expression of interest received.",
     toastFail:
       "Unable to submit. Please try again or email info@micells.io directly.",
@@ -718,6 +735,23 @@ const zh = {
       "您的意向登記已收悉。我們將以機密方式處理,並僅用於需求預測及服務設計。如日後有相關資訊,MiCells® 團隊將以下列電郵與閣下聯絡:",
     successBodyTail: "。",
     reset: "提交另一項意向登記",
+    share: {
+      eyebrow: "推薦予同儕",
+      body:
+        "認識可能重視私人醫療管理的親友嗎?一次私下轉發,勝過任何公開分享。",
+      copyLink: "複製連結",
+      copyLinkOk: "連結已複製至剪貼板",
+      email: "電郵",
+      whatsapp: "WhatsApp",
+      linkedin: "LinkedIn",
+      emailSubject: "MiCells® — 私人醫療管理",
+      emailBody:
+        "或許您會感興趣 — 一個以臨床、機構級態度處理個人醫療準備的方案。\n\nhttps://micells.io",
+      shareText:
+        "或許您會感興趣 — 一個以臨床、機構級態度處理個人醫療準備的方案。https://micells.io",
+      followLinkedin: "於 LinkedIn 關注 MiCells®",
+      close: "關閉",
+    },
     toastSuccess: "意向登記已收悉。",
     toastFail: "無法提交。請重試或直接電郵至 info@micells.io。",
     captcha: {

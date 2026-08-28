@@ -4,7 +4,19 @@ import { BRAND } from "@/lib/brand";
 import { useLanguage } from "@/lib/LanguageContext";
 import { Reveal } from "./Reveal";
 import { ProcessCaptcha } from "./ProcessCaptcha";
-import { ArrowRight, Check, ShieldCheck, Lock, LineChart, X } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  ShieldCheck,
+  Lock,
+  LineChart,
+  X,
+  Link2,
+  Mail,
+  MessageCircle,
+  Linkedin,
+  ArrowUpRight,
+} from "lucide-react";
 import { toast } from "sonner";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -426,6 +438,26 @@ const SuccessModal = ({ open, onClose, r }) => {
 
   if (!open) return null;
 
+  const s = r.share;
+  const siteUrl = "https://micells.io";
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(siteUrl);
+      toast.success(s.copyLinkOk);
+    } catch (_) {
+      toast.error("Copy failed — please copy manually.");
+    }
+  };
+
+  const emailHref = `mailto:?subject=${encodeURIComponent(
+    s.emailSubject
+  )}&body=${encodeURIComponent(s.emailBody)}`;
+  const whatsappHref = `https://wa.me/?text=${encodeURIComponent(s.shareText)}`;
+  const linkedinShareHref = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+    siteUrl
+  )}`;
+
   return (
     <div
       data-testid="register-success"
@@ -437,27 +469,28 @@ const SuccessModal = ({ open, onClose, r }) => {
       }}
     >
       <div
-        className="relative w-full max-w-[560px] bg-white border border-[color:var(--mc-line)] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45)]"
+        className="relative w-full max-w-[560px] max-h-[92vh] overflow-y-auto bg-white border border-[color:var(--mc-line)] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45)]"
         style={{ animation: "successModalIn 340ms cubic-bezier(0.2,0.8,0.2,1) both" }}
       >
         <button
           type="button"
           onClick={onClose}
           data-testid="register-success-close"
-          aria-label={r.captcha?.cancel || "Close"}
-          className="absolute top-4 right-4 h-9 w-9 rounded-full flex items-center justify-center text-[color:var(--mc-muted)] hover:text-[color:var(--mc-secondary)] hover:bg-[color:var(--mc-canvas)] transition-colors"
+          aria-label={s.close}
+          className="absolute top-4 right-4 h-9 w-9 rounded-full flex items-center justify-center text-[color:var(--mc-muted)] hover:text-[color:var(--mc-secondary)] hover:bg-[color:var(--mc-canvas)] transition-colors z-10"
         >
           <X size={16} strokeWidth={1.6} />
         </button>
 
+        {/* Thank-you block */}
         <div className="px-8 md:px-12 pt-12 pb-8">
           <div className="h-11 w-11 rounded-full bg-[color:var(--mc-primary)] text-white flex items-center justify-center">
             <Check size={20} strokeWidth={2} />
           </div>
-          <h3 className="mt-8 font-display text-[28px] md:text-[32px] leading-[1.1] tracking-tight text-[color:var(--mc-secondary)]">
+          <h3 className="mt-8 font-display text-[26px] md:text-[30px] leading-[1.1] tracking-tight text-[color:var(--mc-secondary)]">
             {r.successTitle}
           </h3>
-          <p className="mt-5 text-[15px] leading-relaxed text-[color:var(--mc-muted)]">
+          <p className="mt-5 text-[14.5px] leading-relaxed text-[color:var(--mc-muted)]">
             {r.successBody}{" "}
             <span className="text-[color:var(--mc-secondary)]">
               {BRAND.email}
@@ -466,16 +499,60 @@ const SuccessModal = ({ open, onClose, r }) => {
           </p>
         </div>
 
-        <div className="px-8 md:px-12 pb-10 pt-2">
-          <button
-            type="button"
-            onClick={onClose}
-            data-testid="register-reset"
-            className="mc-btn mc-btn-primary"
+        {/* Referral tray */}
+        <div className="border-t border-[color:var(--mc-line)] bg-[color:var(--mc-canvas)] px-8 md:px-12 py-8">
+          <div className="font-mono-tab text-[10.5px] uppercase tracking-[0.22em] text-[color:var(--mc-primary)]">
+            {s.eyebrow}
+          </div>
+          <p className="mt-4 text-[14px] leading-relaxed text-[color:var(--mc-muted)] max-w-[420px]">
+            {s.body}
+          </p>
+
+          <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <ShareButton
+              icon={Link2}
+              label={s.copyLink}
+              onClick={copyLink}
+              testId="share-copy-link"
+            />
+            <ShareButton
+              icon={Mail}
+              label={s.email}
+              href={emailHref}
+              testId="share-email"
+            />
+            <ShareButton
+              icon={MessageCircle}
+              label={s.whatsapp}
+              href={whatsappHref}
+              external
+              testId="share-whatsapp"
+            />
+            <ShareButton
+              icon={Linkedin}
+              label={s.linkedin}
+              href={linkedinShareHref}
+              external
+              testId="share-linkedin"
+            />
+          </div>
+        </div>
+
+        {/* Follow footer */}
+        <div className="border-t border-[color:var(--mc-line)] px-8 md:px-12 py-6 flex items-center justify-between gap-4 bg-white">
+          <span className="text-[12px] tracking-[0.02em] text-[color:var(--mc-muted)] leading-relaxed">
+            {s.followLinkedin}
+          </span>
+          <a
+            href={BRAND.links.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="register-success-follow"
+            className="inline-flex items-center gap-2 text-[13px] tracking-[0.02em] text-[color:var(--mc-secondary)] hover:text-[color:var(--mc-primary)] transition-colors shrink-0"
           >
-            {r.reset}
-            <ArrowRight size={14} />
-          </button>
+            <Linkedin size={14} strokeWidth={1.6} />
+            <ArrowUpRight size={13} strokeWidth={1.6} />
+          </a>
         </div>
 
         <style>{`
@@ -486,5 +563,36 @@ const SuccessModal = ({ open, onClose, r }) => {
         `}</style>
       </div>
     </div>
+  );
+};
+
+const ShareButton = ({ icon: Icon, label, onClick, href, external, testId }) => {
+  const cls =
+    "inline-flex items-center justify-center gap-2 px-3 py-3 bg-white border border-[color:var(--mc-line)] text-[13px] tracking-[0.02em] text-[color:var(--mc-secondary)] hover:border-[color:var(--mc-primary)] hover:text-[color:var(--mc-primary)] transition-colors";
+  if (href) {
+    return (
+      <a
+        href={href}
+        {...(external
+          ? { target: "_blank", rel: "noopener noreferrer" }
+          : {})}
+        data-testid={testId}
+        className={cls}
+      >
+        <Icon size={14} strokeWidth={1.6} />
+        <span>{label}</span>
+      </a>
+    );
+  }
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      data-testid={testId}
+      className={cls}
+    >
+      <Icon size={14} strokeWidth={1.6} />
+      <span>{label}</span>
+    </button>
   );
 };
