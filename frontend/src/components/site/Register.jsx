@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { BRAND } from "@/lib/brand";
 import { useLanguage } from "@/lib/LanguageContext";
 import { Reveal } from "./Reveal";
 import { ProcessCaptcha } from "./ProcessCaptcha";
-import { ArrowRight, Check, ShieldCheck, Lock, LineChart } from "lucide-react";
+import { ArrowRight, Check, ShieldCheck, Lock, LineChart, X } from "lucide-react";
 import { toast } from "sonner";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -145,38 +145,11 @@ export const Register = () => {
         </div>
 
         {/* Form card */}
-        {submitted ? (
-          <div
-            data-testid="register-success"
-            className="border border-[color:var(--mc-line)] bg-white p-10 md:p-14 flex flex-col items-start max-w-[720px]"
-          >
-            <div className="h-10 w-10 rounded-full bg-[color:var(--mc-primary)] text-white flex items-center justify-center">
-              <Check size={18} />
-            </div>
-            <h3 className="mt-8 font-display text-[28px] tracking-tight text-[color:var(--mc-secondary)]">
-              {r.successTitle}
-            </h3>
-            <p className="mt-4 max-w-[520px] text-[15px] leading-relaxed text-[color:var(--mc-muted)]">
-              {r.successBody}{" "}
-              <span className="text-[color:var(--mc-secondary)]">
-                {BRAND.email}
-              </span>
-              {r.successBodyTail}
-            </p>
-            <button
-              data-testid="register-reset"
-              onClick={() => setSubmitted(false)}
-              className="mc-btn mc-btn-ghost mt-10"
-            >
-              {r.reset}
-            </button>
-          </div>
-        ) : (
-          <form
-            data-testid="register-form"
-            onSubmit={onSubmit}
-            className="bg-white border border-[color:var(--mc-line)]"
-          >
+        <form
+          data-testid="register-form"
+          onSubmit={onSubmit}
+          className="bg-white border border-[color:var(--mc-line)]"
+        >
             {/* Group: About You */}
             <GroupHeader label={r.groups.about} />
             <Field
@@ -361,12 +334,16 @@ export const Register = () => {
               </button>
             </div>
           </form>
-        )}
       </div>
       <ProcessCaptcha
         open={captchaOpen}
         onClose={() => setCaptchaOpen(false)}
         onVerified={performSubmit}
+      />
+      <SuccessModal
+        open={submitted}
+        onClose={() => setSubmitted(false)}
+        r={r}
       />
     </section>
   );
@@ -431,3 +408,83 @@ const SelectField = ({ label, value, onChange, options, testId }) => (
     </select>
   </label>
 );
+
+
+const SuccessModal = ({ open, onClose, r }) => {
+  useEffect(() => {
+    if (!open) return;
+    document.body.style.overflow = "hidden";
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose?.();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  return (
+    <div
+      data-testid="register-success"
+      role="dialog"
+      aria-modal="true"
+      className="fixed inset-0 z-[100] flex items-center justify-center px-4 sm:px-6 py-8 bg-[color:var(--mc-secondary)]/72 backdrop-blur-sm"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose?.();
+      }}
+    >
+      <div
+        className="relative w-full max-w-[560px] bg-white border border-[color:var(--mc-line)] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45)]"
+        style={{ animation: "successModalIn 340ms cubic-bezier(0.2,0.8,0.2,1) both" }}
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          data-testid="register-success-close"
+          aria-label={r.captcha?.cancel || "Close"}
+          className="absolute top-4 right-4 h-9 w-9 rounded-full flex items-center justify-center text-[color:var(--mc-muted)] hover:text-[color:var(--mc-secondary)] hover:bg-[color:var(--mc-canvas)] transition-colors"
+        >
+          <X size={16} strokeWidth={1.6} />
+        </button>
+
+        <div className="px-8 md:px-12 pt-12 pb-8">
+          <div className="h-11 w-11 rounded-full bg-[color:var(--mc-primary)] text-white flex items-center justify-center">
+            <Check size={20} strokeWidth={2} />
+          </div>
+          <h3 className="mt-8 font-display text-[28px] md:text-[32px] leading-[1.1] tracking-tight text-[color:var(--mc-secondary)]">
+            {r.successTitle}
+          </h3>
+          <p className="mt-5 text-[15px] leading-relaxed text-[color:var(--mc-muted)]">
+            {r.successBody}{" "}
+            <span className="text-[color:var(--mc-secondary)]">
+              {BRAND.email}
+            </span>
+            {r.successBodyTail}
+          </p>
+        </div>
+
+        <div className="px-8 md:px-12 pb-10 pt-2">
+          <button
+            type="button"
+            onClick={onClose}
+            data-testid="register-reset"
+            className="mc-btn mc-btn-primary"
+          >
+            {r.reset}
+            <ArrowRight size={14} />
+          </button>
+        </div>
+
+        <style>{`
+          @keyframes successModalIn {
+            from { opacity: 0; transform: translateY(14px) scale(0.985); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+          }
+        `}</style>
+      </div>
+    </div>
+  );
+};
