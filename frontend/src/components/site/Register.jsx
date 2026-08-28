@@ -224,16 +224,20 @@ export const Register = () => {
               options={r.options.bloodType}
               testId="register-input-blood"
             />
-            <div className="grid grid-cols-12 gap-x-6 py-6 border-b border-[color:var(--mc-line)] items-baseline px-6 md:px-10">
-              <label className="col-span-12 md:col-span-4 font-mono-tab text-[11px] uppercase tracking-[0.18em] text-[color:var(--mc-muted)]">
+            <div className="grid grid-cols-12 gap-x-6 py-4 md:py-5 border-b border-[color:var(--mc-line)] items-center px-6 md:px-10 hover:bg-[color:var(--mc-canvas)]/50 transition-colors">
+              <label
+                htmlFor="register-input-household"
+                className="col-span-12 md:col-span-4 font-mono-tab text-[11px] uppercase tracking-[0.18em] text-[color:var(--mc-muted)] cursor-pointer select-none"
+              >
                 {r.fields.household}
               </label>
               <div className="col-span-12 md:col-span-8 flex flex-col md:flex-row gap-4 md:items-center">
                 <select
+                  id="register-input-household"
                   data-testid="register-input-household"
                   value={form.household}
                   onChange={update("household")}
-                  className="flex-1 bg-transparent border-0 focus:outline-none text-[16px] text-[color:var(--mc-secondary)] py-1 pr-4 cursor-pointer"
+                  className="flex-1 bg-transparent border-0 focus:outline-none text-[16px] text-[color:var(--mc-secondary)] py-2.5 pr-4 cursor-pointer"
                 >
                   {r.options.household.map((o) => (
                     <option key={o.v} value={o.v}>
@@ -242,8 +246,8 @@ export const Register = () => {
                   ))}
                 </select>
                 {showHousehold && (
-                  <div className="flex items-center gap-3 md:pl-4 md:border-l md:border-[color:var(--mc-line)]">
-                    <span className="font-mono-tab text-[10px] uppercase tracking-[0.18em] text-[color:var(--mc-muted)]">
+                  <label className="flex items-center gap-3 md:pl-4 md:border-l md:border-[color:var(--mc-line)] cursor-text">
+                    <span className="font-mono-tab text-[10px] uppercase tracking-[0.18em] text-[color:var(--mc-muted)] select-none">
                       {r.fields.householdCount}
                     </span>
                     <input
@@ -253,9 +257,9 @@ export const Register = () => {
                       max={20}
                       value={form.household_count}
                       onChange={update("household_count")}
-                      className="w-20 bg-transparent border-b border-[color:var(--mc-line)] focus:outline-none focus:border-[color:var(--mc-primary)] text-[16px] text-[color:var(--mc-secondary)] py-1 text-center"
+                      className="w-20 bg-transparent border-b border-[color:var(--mc-line)] focus:outline-none focus:border-[color:var(--mc-primary)] text-[16px] text-[color:var(--mc-secondary)] py-2 text-center cursor-text"
                     />
-                  </div>
+                  </label>
                 )}
               </div>
             </div>
@@ -293,19 +297,19 @@ export const Register = () => {
               onChange={update("referral")}
               testId="register-input-referral"
             />
-            <div className="grid grid-cols-12 gap-x-6 py-6 border-b border-[color:var(--mc-line)] px-6 md:px-10">
-              <label className="col-span-12 md:col-span-4 font-mono-tab text-[11px] uppercase tracking-[0.18em] text-[color:var(--mc-muted)] pt-3">
+            <label className="grid grid-cols-12 gap-x-6 py-4 md:py-5 border-b border-[color:var(--mc-line)] px-6 md:px-10 cursor-text hover:bg-[color:var(--mc-canvas)]/50 transition-colors">
+              <span className="col-span-12 md:col-span-4 font-mono-tab text-[11px] uppercase tracking-[0.18em] text-[color:var(--mc-muted)] pt-3 select-none">
                 {r.fields.notes}
-              </label>
+              </span>
               <textarea
                 data-testid="register-input-notes"
                 rows={4}
                 value={form.notes}
                 onChange={update("notes")}
                 placeholder={r.fields.notesPlaceholder}
-                className="col-span-12 md:col-span-8 bg-transparent border-0 focus:outline-none text-[15.5px] text-[color:var(--mc-secondary)] placeholder:text-[color:var(--mc-muted)]/60 resize-none"
+                className="col-span-12 md:col-span-8 bg-transparent border-0 focus:outline-none text-[15.5px] text-[color:var(--mc-secondary)] placeholder:text-[color:var(--mc-muted)]/60 resize-none py-2 cursor-text"
               />
-            </div>
+            </label>
 
             {/* Non-binding terms */}
             <div className="bg-[color:var(--mc-canvas)] border-t border-[color:var(--mc-line)] p-8 md:p-10">
@@ -385,8 +389,8 @@ const Field = ({
   required,
   testId,
 }) => (
-  <div className="grid grid-cols-12 gap-x-6 py-6 border-b border-[color:var(--mc-line)] items-baseline px-6 md:px-10">
-    <label className="col-span-12 md:col-span-4 font-mono-tab text-[11px] uppercase tracking-[0.18em] text-[color:var(--mc-muted)] flex items-center gap-3">
+  <label className="grid grid-cols-12 gap-x-6 py-4 md:py-5 border-b border-[color:var(--mc-line)] items-center px-6 md:px-10 cursor-text hover:bg-[color:var(--mc-canvas)]/50 transition-colors">
+    <span className="col-span-12 md:col-span-4 font-mono-tab text-[11px] uppercase tracking-[0.18em] text-[color:var(--mc-muted)] flex items-center gap-3 select-none">
       <span>
         {label}
         {required ? "*" : ""}
@@ -396,28 +400,28 @@ const Field = ({
           · {hint}
         </span>
       )}
-    </label>
+    </span>
     <input
       type={type}
       value={value}
       onChange={onChange}
       required={required}
       data-testid={testId}
-      className="col-span-12 md:col-span-8 bg-transparent border-0 focus:outline-none text-[16px] text-[color:var(--mc-secondary)] placeholder:text-[color:var(--mc-muted)]/60 py-1"
+      className="col-span-12 md:col-span-8 bg-transparent border-0 focus:outline-none text-[16px] text-[color:var(--mc-secondary)] placeholder:text-[color:var(--mc-muted)]/60 py-2.5 cursor-text"
     />
-  </div>
+  </label>
 );
 
 const SelectField = ({ label, value, onChange, options, testId }) => (
-  <div className="grid grid-cols-12 gap-x-6 py-6 border-b border-[color:var(--mc-line)] items-baseline px-6 md:px-10">
-    <label className="col-span-12 md:col-span-4 font-mono-tab text-[11px] uppercase tracking-[0.18em] text-[color:var(--mc-muted)]">
+  <label className="grid grid-cols-12 gap-x-6 py-4 md:py-5 border-b border-[color:var(--mc-line)] items-center px-6 md:px-10 cursor-pointer hover:bg-[color:var(--mc-canvas)]/50 transition-colors">
+    <span className="col-span-12 md:col-span-4 font-mono-tab text-[11px] uppercase tracking-[0.18em] text-[color:var(--mc-muted)] select-none">
       {label}
-    </label>
+    </span>
     <select
       data-testid={testId}
       value={value}
       onChange={onChange}
-      className="col-span-12 md:col-span-8 bg-transparent border-0 focus:outline-none text-[16px] text-[color:var(--mc-secondary)] py-1 pr-4 cursor-pointer"
+      className="col-span-12 md:col-span-8 bg-transparent border-0 focus:outline-none text-[16px] text-[color:var(--mc-secondary)] py-2.5 pr-4 cursor-pointer"
     >
       {options.map((o) => (
         <option key={o.v} value={o.v}>
@@ -425,5 +429,5 @@ const SelectField = ({ label, value, onChange, options, testId }) => (
         </option>
       ))}
     </select>
-  </div>
+  </label>
 );
