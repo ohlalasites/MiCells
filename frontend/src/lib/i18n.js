@@ -253,6 +253,27 @@ const en = {
     toastSuccess: "Expression of interest received.",
     toastFail:
       "Unable to submit. Please try again or email info@micells.io directly.",
+    captcha: {
+      eyebrow: "Human Verification",
+      headingA: "Sequence the",
+      headingB: "MiCells® process.",
+      body:
+        "Tap each step into the correct order it occurs in the MiCells® programme. This confirms you're human before we submit your expression of interest.",
+      steps: [
+        "Consultation",
+        "Collection",
+        "Preservation",
+        "Stewardship",
+      ],
+      steps_label: "Steps",
+      yourOrder: "Your Order",
+      emptySlot: "—",
+      confirm: "Confirm Sequence",
+      reset: "Reset",
+      cancel: "Cancel",
+      wrong: "Order not correct — please try again.",
+      attempts: "Attempt {n}",
+    },
   },
   investors: {
     eyebrow: "08 · Partners",
@@ -699,6 +720,22 @@ const zh = {
     reset: "提交另一項意向登記",
     toastSuccess: "意向登記已收悉。",
     toastFail: "無法提交。請重試或直接電郵至 info@micells.io。",
+    captcha: {
+      eyebrow: "人機驗證",
+      headingA: "為",
+      headingB: "MiCells® 流程排序。",
+      body:
+        "請依 MiCells® 計劃的正確順序,點選每個步驟。此步驟旨在確認閣下並非自動化程式,再提交您的意向登記。",
+      steps: ["諮詢", "採集", "保存", "守護"],
+      steps_label: "步驟",
+      yourOrder: "您的順序",
+      emptySlot: "—",
+      confirm: "確認順序",
+      reset: "重設",
+      cancel: "取消",
+      wrong: "順序不正確 — 請再試一次。",
+      attempts: "第 {n} 次嘗試",
+    },
   },
   investors: {
     eyebrow: "08 · 合作夥伴",

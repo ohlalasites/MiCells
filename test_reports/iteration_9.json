@@ -1,0 +1,22 @@
+{
+  "summary": "Full E2E + regression testing of new ProcessCaptcha modal on Register form. Backend /api/interest regression (5 pytest tests) all pass. Frontend Playwright E2E on desktop covers: empty-form validation (no modal), consent-missing validation (no modal), modal open on valid submit, structure (eyebrow HUMAN VERIFICATION, 4 chips, 4 slots, disabled confirm), WRONG order flow (modal stays open, toast, attempts=1, auto-reset), Reset button, chip removal by tapping filled slot, Cancel + Escape + backdrop click all close, body overflow restored, CORRECT order submits and shows success card. Bilingual 繁 verified end-to-end (人機驗證, MiCells® 流程排序, 諮詢/採集/保存/守護, 確認順序/取消, wrong toast 順序不正確, success card). Mobile viewport 390x844 verified — slots stack single column at x=45, chips wrap, all footer buttons reachable, submit completes.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_interest_regression.py",
+    "/app/test_reports/pytest/pytest_iter9.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Bot-defence is UX-only (frontend gate). Documented and acceptable for MVP but note: a scripted POST directly to /api/interest bypasses the CAPTCHA entirely. Consider a lightweight server-side signal (hCaptcha/Turnstile or a signed token from the client puzzle) if bot volume becomes an issue.",
+    "ProcessCaptcha.jsx: two useEffects on `open` are fine, but the `open` transition path always resets `attempts` back to 0 on reopen — matches spec.",
+    "Register.jsx: performSubmit closes modal BEFORE the axios POST resolves. If the POST fails, the CAPTCHA is not re-opened. Current behaviour shows an error toast and keeps the form filled — acceptable, but user has to re-solve the CAPTCHA on retry (by design, since setSubmitted stays false)."
+  ],
+  "updated_files": ["/app/backend/tests/test_interest_regression.py"],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "seed_data_creation": "Created a few TEST_-prefixed interest records via /api/interest during backend regression. Harmless test data.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "ProcessCaptcha correct sequence is source indices [0,1,2,3]. Modal testids: process-captcha, captcha-chip-0..3, captcha-slot-0..3, captcha-close, captcha-cancel, captcha-reset, captcha-confirm, captcha-attempts. Backend has NO CAPTCHA validation — scripted POSTs to /api/interest still work by design.",
+  "rca of the issue": "No issues found."
+}

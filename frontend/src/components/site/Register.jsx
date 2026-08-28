@@ -3,6 +3,7 @@ import axios from "axios";
 import { BRAND } from "@/lib/brand";
 import { useLanguage } from "@/lib/LanguageContext";
 import { Reveal } from "./Reveal";
+import { ProcessCaptcha } from "./ProcessCaptcha";
 import { ArrowRight, Check, ShieldCheck, Lock, LineChart } from "lucide-react";
 import { toast } from "sonner";
 
@@ -33,6 +34,7 @@ export const Register = () => {
   const [form, setForm] = useState(INITIAL);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [captchaOpen, setCaptchaOpen] = useState(false);
 
   const update = (k) => (e) => {
     const v = e && e.target ? e.target.value : e;
@@ -45,7 +47,7 @@ export const Register = () => {
     form.household === "family" ||
     form.household === "extended";
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim()) {
       toast.error(r.validationRequired);
@@ -55,6 +57,12 @@ export const Register = () => {
       toast.error(r.validationConsent);
       return;
     }
+    // Gate the actual submission behind the on-brand CAPTCHA.
+    setCaptchaOpen(true);
+  };
+
+  const performSubmit = async () => {
+    setCaptchaOpen(false);
     setSubmitting(true);
     try {
       const payload = {
@@ -351,6 +359,11 @@ export const Register = () => {
           </form>
         )}
       </div>
+      <ProcessCaptcha
+        open={captchaOpen}
+        onClose={() => setCaptchaOpen(false)}
+        onVerified={performSubmit}
+      />
     </section>
   );
 };
