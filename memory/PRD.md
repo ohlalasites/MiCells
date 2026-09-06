@@ -101,17 +101,8 @@ Build a world-class institutional website for MiCells, a medical biotechnology c
 - Backend: `pytest /app/backend/tests/` → 16/16 green. Curl verified 201, 422 (consent=false), 422 (missing email), GET listing, zh language round-trip. Resend delivered production emails.
 - Frontend: full Playwright E2E verified nav link, section rendering, assurance cards, all form controls, household_count reveal on non-self coverage, consent validation, success state + reset, EN ↔ 繁 toggle across every string in the section.
 
-## Implemented (2026-02-11) — HKSTP Partner Logo
-- **Assets prepared** — Converted the supplied purple HKSTP Partner logo into two colour variants at `/app/frontend/public/brand/`:
-  - `hkstp-partner-white.png` (white on transparent, ~480×194) for the transparent nav over the dark hero.
-  - `hkstp-partner-dark.png` (#424240 on transparent) for the scrolled nav and canvas-coloured footer.
-  - Alpha was derived per-pixel from luminance (bg→transparent, logo→opaque) so edges remain crisp on both themes.
-- **Nav** (`/app/frontend/src/components/site/Nav.jsx`) — New `HkstpBadge` component renders next to `LangToggle` at top-right (desktop only, `hidden lg:flex`). It swaps between the white and dark PNGs based on the `scrolled` state, `h-6 w-auto`, opacity 0.8/0.9. `data-testid="nav-hkstp-badge"`.
-- **Footer** (`/app/frontend/src/components/site/Footer.jsx`) — Dark badge placed directly below the `HONG KONG SAR · ASIA` location line inside the address column (`h-8 w-auto`, `opacity-85`). `data-testid="footer-hkstp-badge"`.
-- **Non-clickable** — Purely visual credibility marker (no link), per user preference.
-- **Verified 2026-02-11** — Screenshot-verified at 1920×800, 1440×900, and 390×800 viewports across EN and 繁 language states. No layout regressions; language toggle no longer clipped.
-
 ## Deferred Backlog
+- **P1** — Add HKSTP Partner logo when the user supplies a final production PNG (target: Nav top-right + Footer under `Hong Kong SAR · Asia`). Previous auto-generated variant was rejected as "messy".
 - **P1** — Replace "To Be Announced" advisory seats with named advisors as they are appointed (with bios and headshots).
 - **P1** — Wire real investor deck PDF behind the "Request Investor Information" gate when ready.
 - **P2** — Add Google Analytics 4 / Plausible once measurement ID is provided.
