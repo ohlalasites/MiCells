@@ -99,7 +99,8 @@ export const Nav = () => {
           </Link>
         </nav>
 
-        <div className="hidden lg:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-3">
+          <HkstpBadge scrolled={scrolled} />
           <LangToggle scrolled={scrolled} lang={lang} setLang={setLang} aria={t.nav.toggleAria} variant="desktop" />
           <a
             href={anchor("#contact")}
@@ -159,6 +160,23 @@ export const Nav = () => {
     </header>
   );
 };
+
+const HkstpBadge = ({ scrolled }) => (
+  <span
+    data-testid="nav-hkstp-badge"
+    aria-label="HKSTP Partner"
+    title="HKSTP Partner"
+    className="inline-flex items-center"
+  >
+    <img
+      src={scrolled ? "/brand/hkstp-partner-dark.png" : "/brand/hkstp-partner-white.png"}
+      alt="HKSTP Partner"
+      className={`h-6 w-auto object-contain transition-opacity duration-300 ${
+        scrolled ? "opacity-80" : "opacity-90"
+      }`}
+    />
+  </span>
+);
 
 const LangToggle = ({ scrolled, lang, setLang, aria, variant = "desktop" }) => {
   const onColor = scrolled ? "text-[color:var(--mc-secondary)] border-[color:var(--mc-line)]" : "text-white border-white/30";

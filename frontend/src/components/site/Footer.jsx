@@ -38,6 +38,18 @@ export const Footer = () => {
             <div className="mt-4 font-mono-tab text-[11px] uppercase tracking-[0.18em] text-[color:var(--mc-muted)]">
               {t.footer.location}
             </div>
+            <div
+              data-testid="footer-hkstp-badge"
+              className="mt-8 inline-flex items-center gap-3"
+              aria-label="HKSTP Partner"
+              title="HKSTP Partner"
+            >
+              <img
+                src="/brand/hkstp-partner-dark.png"
+                alt="HKSTP Partner"
+                className="h-8 w-auto object-contain opacity-85"
+              />
+            </div>
           </div>
 
           <div className="col-span-6 md:col-span-2">
